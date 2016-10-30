@@ -9,6 +9,7 @@ namespace TestProject {
     class Program {
         static void Main(string[] args) {
             using (var context = new QuanLyVatTuContext()) {
+                //select without condition
                 var loai = from l in context.Loai
                            select l;
                 
@@ -16,9 +17,13 @@ namespace TestProject {
                     Console.WriteLine(l.MaLoai.ToString());
                 }
 
+                //select with condition
                 var thietBi = from tb in context.ThietBi
                               where tb.MaLoai == 0
                               select tb;
+
+                // pure query (not recommended)
+                var thietBi2 = context.ThietBi.SqlQuery("SELECT * FROM ThietBi").ToList();
                 foreach(ThietBi tb in thietBi) {
                     Console.WriteLine(tb.NgayDuaVaoSuDung.ToString());
                 }
