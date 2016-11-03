@@ -17,15 +17,14 @@ namespace DF_Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PhieuNhap()
         {
-            this.ChiTietPhieuNhap = new HashSet<ChiTietPhieuNhap>();
+            this.ThietBi = new HashSet<ThietBi>();
         }
     
         public int MaPhieuNhap { get; set; }
-        public int MaNhaCungCap { get; set; }
         public System.DateTime NgayNhap { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietPhieuNhap> ChiTietPhieuNhap { get; set; }
         public virtual NhaCungCap NhaCungCap { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ThietBi> ThietBi { get; set; }
     }
 }

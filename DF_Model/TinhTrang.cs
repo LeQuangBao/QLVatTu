@@ -17,7 +17,6 @@ namespace DF_Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TinhTrang()
         {
-            this.ChiTietPhieuGiaoNhan = new HashSet<ChiTietPhieuGiaoNhan>();
             this.ThietBi = new HashSet<ThietBi>();
         }
     
@@ -25,8 +24,6 @@ namespace DF_Model
         public string TenTinhTrang { get; set; }
         public string GhiChu { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietPhieuGiaoNhan> ChiTietPhieuGiaoNhan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ThietBi> ThietBi { get; set; }
     }

@@ -14,12 +14,21 @@ namespace DF_Model
     
     public partial class ThietBi
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public ThietBi()
+        {
+            this.PhieuGiaoNhan = new HashSet<PhieuGiaoNhan>();
+            this.PhieuNhap = new HashSet<PhieuNhap>();
+        }
+    
         public int MaThietBi { get; set; }
-        public int MaLoai { get; set; }
         public Nullable<System.DateTime> NgayDuaVaoSuDung { get; set; }
-        public int TinhTrang { get; set; }
     
         public virtual Loai Loai { get; set; }
-        public virtual TinhTrang TinhTrang1 { get; set; }
+        public virtual TinhTrang TinhTrang { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PhieuGiaoNhan> PhieuGiaoNhan { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PhieuNhap> PhieuNhap { get; set; }
     }
 }
