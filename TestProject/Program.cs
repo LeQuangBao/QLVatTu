@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DF_Model;
+using Model;
 
 namespace TestProject {
     class Program {
         static void Main(string[] args) {
-            using (var context = new QuanLyVatTuContext()) {
+            using (var context = new Context()) {
                 //select without condition
                 var loai = from l in context.Loai
                            select l;
@@ -17,14 +17,15 @@ namespace TestProject {
                     Console.WriteLine(l.MaLoai.ToString());
                 }
 
-                //select with condition
+                //select with condition and inner join
                 var thietBi = from tb in context.ThietBi
-                              where tb.MaLoai == 0
+                              join l in context.Loai on tb.MaLoai equals l.MaLoai
+                              where l.MaLoai == 0
                               select tb;
 
                 // pure query (not recommended)
                 var thietBi2 = context.ThietBi.SqlQuery("SELECT * FROM ThietBi").ToList();
-                foreach(ThietBi tb in thietBi) {
+                foreach(ThietBi tb in thietBi) {                    
                     Console.WriteLine(tb.NgayDuaVaoSuDung.ToString());
                 }
 
@@ -47,12 +48,12 @@ namespace TestProject {
                 //context.SaveChanges();
 
                 // DELETE
-                var thietBi5 = from tb in context.ThietBi
-                               where tb.MaThietBi == 36
-                               select tb;
-                foreach(ThietBi tb in thietBi5) {
-                    context.ThietBi.Remove(tb);
-                }
+                //var thietBi5 = from tb in context.ThietBi
+                //               where tb.MaThietBi == 36
+                //               select tb;
+                //foreach(ThietBi tb in thietBi5) {
+                //    context.ThietBi.Remove(tb);
+                //}
                 context.SaveChanges();
             }
         }

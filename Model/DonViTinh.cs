@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DF_Model
+namespace Model
 {
     using System;
     using System.Collections.Generic;

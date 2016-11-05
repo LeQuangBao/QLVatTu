@@ -13,5 +13,11 @@ namespace WinForm {
         public Form1() {
             InitializeComponent();
         }
+
+        private void Form1_Load(object sender, EventArgs e) {
+            // TODO: This line of code loads data into the 'thietBiDataSet.Loai' table. You can move, or remove it, as needed.
+            this.loaiTableAdapter.Fill(this.thietBiDataSet.Loai);
+
+        }
     }
 }

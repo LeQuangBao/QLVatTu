@@ -7,24 +7,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DF_Model
+namespace Model
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class PhieuNhap
+    public partial class NhaCungCap
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PhieuNhap()
+        public NhaCungCap()
         {
-            this.ThietBi = new HashSet<ThietBi>();
+            this.PhieuNhap = new HashSet<PhieuNhap>();
         }
     
-        public int MaPhieuNhap { get; set; }
-        public System.DateTime NgayNhap { get; set; }
+        public int MaNhaCungCap { get; set; }
+        public string TenNhaCungCap { get; set; }
+        public string DiaChi { get; set; }
+        public string DienThoai { get; set; }
     
-        public virtual NhaCungCap NhaCungCap { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ThietBi> ThietBi { get; set; }
+        public virtual ICollection<PhieuNhap> PhieuNhap { get; set; }
     }
 }

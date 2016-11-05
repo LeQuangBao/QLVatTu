@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DF_Model
+namespace Model
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class QuanLyVatTuEntities : DbContext
+    public partial class Context : DbContext
     {
-        public QuanLyVatTuEntities()
-            : base("metadata=res://*/Model.csdl|res://*/Model.ssdl|res://*/Model.msl;provider=System.Data.SqlClient;provider connection string=';data source=.\\SORA_SERVER;initial catalog=QuanLyVatTu;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework';")
+        public Context()
+            : base("metadata=res://*/Model.csdl|res://*/Model.ssdl|res://*/Model.msl;provider=System.Data.SqlClient;provider connection string=';data source=.\\sora_server;initial catalog=QuanLyVatTu;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework';")
         {
         }
     
@@ -32,6 +32,7 @@ namespace DF_Model
         public virtual DbSet<NhaCungCap> NhaCungCap { get; set; }
         public virtual DbSet<PhieuGiaoNhan> PhieuGiaoNhan { get; set; }
         public virtual DbSet<PhieuNhap> PhieuNhap { get; set; }
+        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<TinhTrang> TinhTrang { get; set; }
         public virtual DbSet<ThietBi> ThietBi { get; set; }
     }
