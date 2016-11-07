@@ -12,10 +12,6 @@ namespace TestProject {
                 //select without condition
                 var loai = from l in context.Loai
                            select l;
-                
-                foreach(Loai l in loai) {
-                    Console.WriteLine(l.MaLoai.ToString());
-                }
 
                 //select with condition and inner join
                 var thietBi = from tb in context.ThietBi
@@ -23,10 +19,26 @@ namespace TestProject {
                               where l.MaLoai == 0
                               select tb;
 
+                //select pivot table
+                var phieuGiaoNhan = from pgn in context.PhieuGiaoNhan
+                                    where pgn.MaLoaiGiaoNhan == "1"
+                                    select pgn;
+
+                List<ThietBi> thietBi1 = new List<ThietBi>();
+                foreach (PhieuGiaoNhan pgn in phieuGiaoNhan) {
+                    thietBi1.AddRange(pgn.ThietBi.ToList());
+                }
+                // select elements from List
+                var sg = thietBi1.Where(tb => tb.MaThietBi == 8);
+                foreach (ThietBi tb in sg) {
+                    Console.WriteLine(tb.MaThietBi);
+                }
+
                 // pure query (not recommended)
-                var thietBi2 = context.ThietBi.SqlQuery("SELECT * FROM ThietBi").ToList();
-                foreach(ThietBi tb in thietBi) {                    
-                    Console.WriteLine(tb.NgayDuaVaoSuDung.ToString());
+                //var thietBi2 = context.ThietBi.SqlQuery("SELECT * FROM ThietBi").ToList();
+
+                foreach (ThietBi tb in thietBi1) {
+                    Console.WriteLine(tb.MaThietBi.ToString());
                 }
 
                 // INSERT
@@ -54,7 +66,7 @@ namespace TestProject {
                 //foreach(ThietBi tb in thietBi5) {
                 //    context.ThietBi.Remove(tb);
                 //}
-                context.SaveChanges();
+                //context.SaveChanges();
             }
         }
     }
