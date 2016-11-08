@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinForm", "WinForm\WinForm.csproj", "{A3308965-B0BB-44DB-A044-E8C483841C59}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebForm", "WebForm\WebForm.csproj", "{562615A5-EA9C-4BA3-8BBC-9B52F31133BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{A3308965-B0BB-44DB-A044-E8C483841C59}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3308965-B0BB-44DB-A044-E8C483841C59}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3308965-B0BB-44DB-A044-E8C483841C59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{562615A5-EA9C-4BA3-8BBC-9B52F31133BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{562615A5-EA9C-4BA3-8BBC-9B52F31133BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{562615A5-EA9C-4BA3-8BBC-9B52F31133BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{562615A5-EA9C-4BA3-8BBC-9B52F31133BF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
