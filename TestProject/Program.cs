@@ -28,18 +28,17 @@ namespace TestProject {
                 foreach (PhieuGiaoNhan pgn in phieuGiaoNhan) {
                     thietBi1.AddRange(pgn.ThietBi.ToList());
                 }
+
                 // select elements from List
-                var sg = thietBi1.Where(tb => tb.MaThietBi == 8);
-                foreach (ThietBi tb in sg) {
-                    Console.WriteLine(tb.MaThietBi);
-                }
+                //var sg = thietBi1.Where(tb => tb.MaThietBi == 8);
+
 
                 // pure query (not recommended)
-                //var thietBi2 = context.ThietBi.SqlQuery("SELECT * FROM ThietBi").ToList();
+                var thietBi2 = context.ThietBi.SqlQuery("SELECT * FROM ThietBi").ToList();
 
-                foreach (ThietBi tb in thietBi1) {
-                    Console.WriteLine(tb.MaThietBi.ToString());
-                }
+                //foreach (ThietBi tb in thietBi1) {
+                //    Console.WriteLine(tb.MaThietBi.ToString());
+                //}
 
                 // INSERT
                 //var thietBi3 = new ThietBi();

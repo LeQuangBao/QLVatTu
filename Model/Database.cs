@@ -6,6 +6,34 @@ using System.Threading.Tasks;
 
 namespace Model {
     public class Database {
+
+        public static List<int> selectThietBiTheoPhieuGiaoNhan(int loaign, int loaiThietBi, DateTime time) {
+            using (var context = new Context()) {
+                var phieuGiaoNhan = from pgn in context.PhieuGiaoNhan
+                                    where pgn.MaLoaiGiaoNhan == loaign.ToString()
+                                    && pgn.NgayGiaoNhan < time
+                                    select pgn;
+                List<ThietBi> listThietBi = new List<ThietBi>();
+                foreach (PhieuGiaoNhan pgn in phieuGiaoNhan) {
+                    listThietBi.AddRange(pgn.ThietBi.ToList());
+                }
+                List<int> listMaThietBi = new List<int>();
+                foreach (ThietBi tb in listThietBi) {
+                    if (tb.MaLoai == loaiThietBi) {
+                        listMaThietBi.Add(tb.MaThietBi);
+                    }
+                }
+                return listMaThietBi;
+            }
+        }
+
+        public static List<TinhTrang> selectTinhTrang() {
+            using (var context = new Context()) {
+                return (from t in context.TinhTrang select t).ToList<TinhTrang>();
+            }
+        }
+
+        //Loai
         public static List<Loai> selectLoai() {
             using (var context = new Context()) {
                 return (from l in context.Loai
@@ -18,7 +46,7 @@ namespace Model {
                 var loai = from l in context.Loai
                            select l;
                 int n = 0;
-                foreach(Loai l in loai) {
+                foreach (Loai l in loai) {
                     n = l.MaLoai;
                 }
                 return n;

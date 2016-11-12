@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArrayUltilities.cs" />
     <Compile Include="Database.cs" />
     <Compile Include="DonVi.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -92,6 +93,7 @@
     <Compile Include="sysdiagrams.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="System\Collections\Generic\List.cs" />
     <Compile Include="ThietBi.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

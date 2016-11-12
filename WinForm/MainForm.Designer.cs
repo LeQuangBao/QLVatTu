@@ -64,6 +64,13 @@
             this.btn_XoaLoai = new System.Windows.Forms.Button();
             this.btn_SuaLoai = new System.Windows.Forms.Button();
             this.btn_ThemLoai = new System.Windows.Forms.Button();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+            this.cb_ThongKe_ChonLoai = new System.Windows.Forms.ComboBox();
+            this.dtp_ThongKe = new System.Windows.Forms.DateTimePicker();
+            this.btn_ThongKe = new System.Windows.Forms.Button();
+            this.cb_ThongKe_ChonTinhTrang = new System.Windows.Forms.ComboBox();
+            this.dgv_ThongKe = new System.Windows.Forms.DataGridView();
             this.loaiTableAdapter = new WinForm.ThietBiDataSetTableAdapters.LoaiTableAdapter();
             this.loaiTableAdapter1 = new WinForm.QuanLyVatTuDataSetTableAdapters.LoaiTableAdapter();
             this.tabControl1.SuspendLayout();
@@ -77,12 +84,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Loai)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.loaiBindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.quanLyVatTuDataSet)).BeginInit();
+            this.tabPage3.SuspendLayout();
+            this.tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_ThongKe)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
@@ -98,7 +109,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(672, 386);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
+            this.tabPage1.Text = "Thống kê nhanh";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // dataGridView1
@@ -188,7 +199,7 @@
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(672, 386);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.Text = "Quản lý loại";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // groupBox1
@@ -431,6 +442,85 @@
             this.btn_ThemLoai.UseVisualStyleBackColor = true;
             this.btn_ThemLoai.Click += new System.EventHandler(this.btn_ThemLoai_Click);
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.tableLayoutPanel2);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(672, 386);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Thống kê chi tiết";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // tableLayoutPanel2
+            // 
+            this.tableLayoutPanel2.ColumnCount = 4;
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.Controls.Add(this.cb_ThongKe_ChonLoai, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.dtp_ThongKe, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.btn_ThongKe, 3, 0);
+            this.tableLayoutPanel2.Controls.Add(this.cb_ThongKe_ChonTinhTrang, 2, 0);
+            this.tableLayoutPanel2.Controls.Add(this.dgv_ThongKe, 0, 1);
+            this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
+            this.tableLayoutPanel2.Name = "tableLayoutPanel2";
+            this.tableLayoutPanel2.RowCount = 2;
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 11.05263F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 88.94736F));
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(666, 380);
+            this.tableLayoutPanel2.TabIndex = 0;
+            // 
+            // cb_ThongKe_ChonLoai
+            // 
+            this.cb_ThongKe_ChonLoai.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cb_ThongKe_ChonLoai.FormattingEnabled = true;
+            this.cb_ThongKe_ChonLoai.Location = new System.Drawing.Point(3, 10);
+            this.cb_ThongKe_ChonLoai.Name = "cb_ThongKe_ChonLoai";
+            this.cb_ThongKe_ChonLoai.Size = new System.Drawing.Size(160, 21);
+            this.cb_ThongKe_ChonLoai.TabIndex = 1;
+            // 
+            // dtp_ThongKe
+            // 
+            this.dtp_ThongKe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.dtp_ThongKe.Location = new System.Drawing.Point(169, 11);
+            this.dtp_ThongKe.Name = "dtp_ThongKe";
+            this.dtp_ThongKe.Size = new System.Drawing.Size(160, 20);
+            this.dtp_ThongKe.TabIndex = 2;
+            // 
+            // btn_ThongKe
+            // 
+            this.btn_ThongKe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_ThongKe.Location = new System.Drawing.Point(501, 9);
+            this.btn_ThongKe.Name = "btn_ThongKe";
+            this.btn_ThongKe.Size = new System.Drawing.Size(162, 23);
+            this.btn_ThongKe.TabIndex = 4;
+            this.btn_ThongKe.Text = "Thống kê";
+            this.btn_ThongKe.UseVisualStyleBackColor = true;
+            this.btn_ThongKe.Click += new System.EventHandler(this.btn_ThongKe_Click);
+            // 
+            // cb_ThongKe_ChonTinhTrang
+            // 
+            this.cb_ThongKe_ChonTinhTrang.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.cb_ThongKe_ChonTinhTrang.FormattingEnabled = true;
+            this.cb_ThongKe_ChonTinhTrang.Location = new System.Drawing.Point(335, 10);
+            this.cb_ThongKe_ChonTinhTrang.Name = "cb_ThongKe_ChonTinhTrang";
+            this.cb_ThongKe_ChonTinhTrang.Size = new System.Drawing.Size(160, 21);
+            this.cb_ThongKe_ChonTinhTrang.TabIndex = 3;
+            // 
+            // dgv_ThongKe
+            // 
+            this.dgv_ThongKe.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.tableLayoutPanel2.SetColumnSpan(this.dgv_ThongKe, 4);
+            this.dgv_ThongKe.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgv_ThongKe.Location = new System.Drawing.Point(3, 45);
+            this.dgv_ThongKe.Name = "dgv_ThongKe";
+            this.dgv_ThongKe.Size = new System.Drawing.Size(660, 332);
+            this.dgv_ThongKe.TabIndex = 4;
+            // 
             // loaiTableAdapter
             // 
             this.loaiTableAdapter.ClearBeforeFill = true;
@@ -460,6 +550,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv_Loai)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.loaiBindingSource1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.quanLyVatTuDataSet)).EndInit();
+            this.tabPage3.ResumeLayout(false);
+            this.tableLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgv_ThongKe)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -508,6 +601,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn donViDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn thongSoKyThuatDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn namSanXuatDataGridViewTextBoxColumn1;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+        private System.Windows.Forms.ComboBox cb_ThongKe_ChonLoai;
+        private System.Windows.Forms.DateTimePicker dtp_ThongKe;
+        private System.Windows.Forms.Button btn_ThongKe;
+        private System.Windows.Forms.ComboBox cb_ThongKe_ChonTinhTrang;
+        private System.Windows.Forms.DataGridView dgv_ThongKe;
     }
 }
 

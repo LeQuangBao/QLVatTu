@@ -21,6 +21,19 @@ namespace WinForm {
             // TODO: This line of code loads data into the 'thietBiDataSet.Loai' table. You can move, or remove it, as needed.
             this.loaiTableAdapter.Fill(this.thietBiDataSet.Loai);
 
+            //Manual
+            List<Loai> listLoai = Database.selectLoai();
+            foreach (Loai l in listLoai) {
+                cb_ThongKe_ChonLoai.Items.Add(l.TenLoai);
+            }
+            List<TinhTrang> listTinhTrang = Database.selectTinhTrang();
+            foreach(TinhTrang t in listTinhTrang) {
+                cb_ThongKe_ChonTinhTrang.Items.Add(t.TenTinhTrang);
+            }
+
+            //Testing ground
+            List<int> list = Database.selectThietBiTheoPhieuGiaoNhan(2, 0, DateTime.Today);
+            return;
         }
 
         private void btn_SuaLoai_Click(object sender, EventArgs e) {
@@ -45,6 +58,10 @@ namespace WinForm {
             tb_ThongSoKyThuat.Text = dgv_Loai.Rows[row].Cells[4].Value.ToString();
             tb_NamSanXuat.Text = dgv_Loai.Rows[row].Cells[5].Value.ToString();
             return;
+        }
+
+        private void btn_ThongKe_Click(object sender, EventArgs e) {
+
         }
     }
 }
