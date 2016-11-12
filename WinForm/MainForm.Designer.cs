@@ -73,6 +73,12 @@
             this.dgv_ThongKe = new System.Windows.Forms.DataGridView();
             this.loaiTableAdapter = new WinForm.ThietBiDataSetTableAdapters.LoaiTableAdapter();
             this.loaiTableAdapter1 = new WinForm.QuanLyVatTuDataSetTableAdapters.LoaiTableAdapter();
+            this.clnMaThietBi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clnLoaiThietBi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clnDonGia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clnDonVi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clnThongSoKyThuat = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clnNamSanXuat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -514,6 +520,13 @@
             // dgv_ThongKe
             // 
             this.dgv_ThongKe.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv_ThongKe.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.clnMaThietBi,
+            this.clnLoaiThietBi,
+            this.clnDonGia,
+            this.clnDonVi,
+            this.clnThongSoKyThuat,
+            this.clnNamSanXuat});
             this.tableLayoutPanel2.SetColumnSpan(this.dgv_ThongKe, 4);
             this.dgv_ThongKe.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv_ThongKe.Location = new System.Drawing.Point(3, 45);
@@ -528,6 +541,42 @@
             // loaiTableAdapter1
             // 
             this.loaiTableAdapter1.ClearBeforeFill = true;
+            // 
+            // clnMaThietBi
+            // 
+            this.clnMaThietBi.HeaderText = "Mã Thiết Bị";
+            this.clnMaThietBi.Name = "clnMaThietBi";
+            this.clnMaThietBi.ReadOnly = true;
+            // 
+            // clnLoaiThietBi
+            // 
+            this.clnLoaiThietBi.HeaderText = "Loại";
+            this.clnLoaiThietBi.Name = "clnLoaiThietBi";
+            this.clnLoaiThietBi.ReadOnly = true;
+            // 
+            // clnDonGia
+            // 
+            this.clnDonGia.HeaderText = "Đơn giá";
+            this.clnDonGia.Name = "clnDonGia";
+            this.clnDonGia.ReadOnly = true;
+            // 
+            // clnDonVi
+            // 
+            this.clnDonVi.HeaderText = "Đơn Vị";
+            this.clnDonVi.Name = "clnDonVi";
+            this.clnDonVi.ReadOnly = true;
+            // 
+            // clnThongSoKyThuat
+            // 
+            this.clnThongSoKyThuat.HeaderText = "Thông Số Kỹ Thuật";
+            this.clnThongSoKyThuat.Name = "clnThongSoKyThuat";
+            this.clnThongSoKyThuat.ReadOnly = true;
+            // 
+            // clnNamSanXuat
+            // 
+            this.clnNamSanXuat.HeaderText = "Năm sản xuất";
+            this.clnNamSanXuat.Name = "clnNamSanXuat";
+            this.clnNamSanXuat.ReadOnly = true;
             // 
             // MainForm
             // 
@@ -608,6 +657,12 @@
         private System.Windows.Forms.Button btn_ThongKe;
         private System.Windows.Forms.ComboBox cb_ThongKe_ChonTinhTrang;
         private System.Windows.Forms.DataGridView dgv_ThongKe;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clnMaThietBi;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clnLoaiThietBi;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clnDonGia;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clnDonVi;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clnThongSoKyThuat;
+        private System.Windows.Forms.DataGridViewTextBoxColumn clnNamSanXuat;
     }
 }
 
