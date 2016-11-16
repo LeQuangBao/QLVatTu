@@ -9,6 +9,9 @@ namespace TestProject {
     class Program {
         static void Main(string[] args) {
             using (var context = new Context()) {
+                DateTime time = new DateTime(2016,11,15);
+                List<ThietBi> tbb = Database.ThongKeTheoTinhTrang(2, time);
+
                 //select without condition
                 var loai = from l in context.Loai
                            select l;
@@ -66,6 +69,19 @@ namespace TestProject {
                 //    context.ThietBi.Remove(tb);
                 //}
                 //context.SaveChanges();
+
+                List<int> list1 = new List<int>();
+                List<int> list2 = new List<int>();
+                for (int i = 0; i < 11; i++) {
+                    if (i < 8) {
+                        list1.Add(i);
+                    }
+                    if (i > 3) {
+                        list2.Add(i);
+                    }
+                }
+                List<int> list3 = UtilityArray.RemoveIntersect(list1, list2);
+                List<int> list4 = UtilityArray.UniqueMerge(list1, list2);
             }
         }
     }

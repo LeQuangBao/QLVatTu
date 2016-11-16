@@ -7,19 +7,161 @@ using System.Threading.Tasks;
 namespace Model {
     public class Database {
 
+        public const int CON_DUNG_DUOC = 0;
+        public const int DANG_DUNG = 1;
+        public const int DA_HU = 2;
+        public const int DA_THANH_LY = 3;
+
+        public const int LAPTOP = 0;
+        public const int DAN_PIANO = 1;
+        public const int ONG_NGHIEM = 2;
+        public const int MAY_CHIEU_SHAFT = 3;
+        public const int DEN_LED = 4;
+
+        public static List<ThietBi> ThongKeTheoTinhTrang(int Loai, DateTime time) {
+            using(Context context = new Context()) {
+                List<ThietBi> result = new List<ThietBi>();
+                List<ThietBi> listThietBi = (from l in context.ThietBi
+                                             where l.MaLoai == Loai
+                                             select l).ToList();
+                //string query = "SELECT TOP 1 PhieuGiaoNhan.MaPhieuGiaoNhan, MaLoaiGiaoNhan, MaDonVi, NgayGiaoNhan FROM PhieuGiaoNhan, ChiTietPhieuGiaoNhan WHERE ChiTietPhieuGiaoNhan.MaPhieuGiaoNhan = PhieuGiaoNhan.MaPhieuGiaoNhan AND NgayGiaoNhan < '2016-06-15' AND MaThietBi = 0 ORDER BY NgayGiaoNhan DESC";
+
+                //var listPhieuGiaoNhan = from p in context.PhieuGiaoNhan
+                //                        select p;
+
+                //PhieuGiaoNhan phieuGiaoNhan = context.PhieuGiaoNhan.SqlQuery(query).ToList().First();
+                foreach(ThietBi thietBi in listThietBi) {
+                    ThietBi rs = new ThietBi();
+                    rs.MaThietBi = thietBi.MaThietBi;
+                    List<PhieuGiaoNhan> listPhieuGiaoNhan = (from pgn in context.PhieuGiaoNhan
+                                                             where pgn.NgayGiaoNhan <= time
+                                                             orderby pgn.NgayGiaoNhan descending
+                                                             select pgn).ToList();
+                    PhieuGiaoNhan p = new PhieuGiaoNhan();
+                    foreach(PhieuGiaoNhan pgn in listPhieuGiaoNhan) {
+                        List<ThietBi> list = pgn.ThietBi.ToList();
+                        bool isFound = false;
+                        foreach(ThietBi tb in list) {
+                            if(tb.MaThietBi == thietBi.MaThietBi) {
+                                isFound = true;
+                                p = pgn;
+                            }
+                        }
+                        if(isFound) {
+                            break;
+                        }
+                    }
+                    // 1 còn hoạt động -> đang dùng
+                    // 2 đang dùng -> còn hoạt động
+                    // 3 đang dùng -> đã hư
+                    // 4 đã hư -> còn hoạt động
+                    // 5 đã hư -> thanh lý
+                    switch(p.MaLoaiGiaoNhan) {
+                        case "1":
+                            rs.TinhTrang = DANG_DUNG;
+                            break;
+                        case "2":
+                            rs.TinhTrang = CON_DUNG_DUOC;
+                            break;
+                        case "3":
+                            rs.TinhTrang = DA_HU;
+                            break;
+                        case "4":
+                            rs.TinhTrang = CON_DUNG_DUOC;
+                            break;
+                        case "5":
+                            rs.TinhTrang = DA_THANH_LY;
+                            break;
+                        default:
+                            break;
+                    }
+                    result.Add(rs);
+                }
+                return result;
+            }
+        }
+
+        /// <summary>
+        /// fail
+        /// </summary>
+        /// <param name="tinhTrang"></param>
+        /// <param name="loai"></param>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        public static List<ThietBi> ThongKeTheoTinhTrang2(int tinhTrang, int loai, DateTime time) {
+            using(Context context = new Context()) {
+                List<ThietBi> result = new List<ThietBi>();
+                List<int> listMaThietBi = new List<int>();
+                // sub list
+                // 0 phiếu nhập
+                // 1 còn hoạt động -> đang dùng
+                // 2 đang dùng -> còn hoạt động
+                // 3 đang dùng -> đã hư
+                // 4 đã hư -> còn hoạt động
+                // 5 đã hư -> thanh lý
+                List<int> list0 = selectThietBiTheoPhieuNhap(loai, time);
+                List<int> list1 = selectThietBiTheoPhieuGiaoNhan(1, loai, time);
+                List<int> list2 = selectThietBiTheoPhieuGiaoNhan(2, loai, time);
+                List<int> list3 = selectThietBiTheoPhieuGiaoNhan(3, loai, time);
+                List<int> list4 = selectThietBiTheoPhieuGiaoNhan(4, loai, time);
+                List<int> list5 = selectThietBiTheoPhieuGiaoNhan(5, loai, time);
+                if(tinhTrang == CON_DUNG_DUOC) {
+                    listMaThietBi.AddRange(list0);
+                    listMaThietBi = UtilityArray.UniqueMerge(listMaThietBi, list2);
+                    listMaThietBi = UtilityArray.UniqueMerge(listMaThietBi, list4);
+                    listMaThietBi = UtilityArray.RemoveIntersect(listMaThietBi, list1);
+                } else if(tinhTrang == DANG_DUNG) {
+                    listMaThietBi.AddRange(list1);
+                    List<int> t = UtilityArray.UniqueMerge(list2, list3);
+                    listMaThietBi = UtilityArray.RemoveIntersect(listMaThietBi, t);
+                } else if(tinhTrang == DA_HU) {
+                    listMaThietBi.AddRange(list3);
+                    List<int> t = UtilityArray.UniqueMerge(list4, list5);
+                    listMaThietBi = UtilityArray.RemoveIntersect(listMaThietBi, t);
+                } else if(tinhTrang == DA_THANH_LY) {
+                    listMaThietBi.AddRange(list5);
+                }
+                var listThietBi = from tb in context.ThietBi
+                                  join m in listMaThietBi on tb.MaThietBi equals m
+                                  select tb;
+                foreach(ThietBi tb in listThietBi) {
+                    result.Add(tb);
+                }
+                return result;
+            }
+        }
+
         public static List<int> selectThietBiTheoPhieuGiaoNhan(int loaign, int loaiThietBi, DateTime time) {
-            using (var context = new Context()) {
+            using(var context = new Context()) {
                 var phieuGiaoNhan = from pgn in context.PhieuGiaoNhan
                                     where pgn.MaLoaiGiaoNhan == loaign.ToString()
                                     && pgn.NgayGiaoNhan < time
                                     select pgn;
                 List<ThietBi> listThietBi = new List<ThietBi>();
-                foreach (PhieuGiaoNhan pgn in phieuGiaoNhan) {
+                foreach(PhieuGiaoNhan pgn in phieuGiaoNhan) {
                     listThietBi.AddRange(pgn.ThietBi.ToList());
                 }
                 List<int> listMaThietBi = new List<int>();
-                foreach (ThietBi tb in listThietBi) {
-                    if (tb.MaLoai == loaiThietBi) {
+                foreach(ThietBi tb in listThietBi) {
+                    if(tb.MaLoai == loaiThietBi) {
+                        listMaThietBi.Add(tb.MaThietBi);
+                    }
+                }
+                return listMaThietBi;
+            }
+        }
+        public static List<int> selectThietBiTheoPhieuNhap(int loaiThietBi, DateTime time) {
+            using(var context = new Context()) {
+                var phieuNhap = from pn in context.PhieuNhap
+                                where pn.NgayNhap < time
+                                select pn;
+                List<ThietBi> listThietBi = new List<ThietBi>();
+                foreach(PhieuNhap pn in phieuNhap) {
+                    listThietBi.AddRange(pn.ThietBi.ToList());
+                }
+                List<int> listMaThietBi = new List<int>();
+                foreach(ThietBi tb in listThietBi) {
+                    if(tb.MaLoai == loaiThietBi) {
                         listMaThietBi.Add(tb.MaThietBi);
                     }
                 }
@@ -27,26 +169,27 @@ namespace Model {
             }
         }
 
+
         public static List<TinhTrang> selectTinhTrang() {
-            using (var context = new Context()) {
+            using(var context = new Context()) {
                 return (from t in context.TinhTrang select t).ToList<TinhTrang>();
             }
         }
 
         //Loai
         public static List<Loai> selectLoai() {
-            using (var context = new Context()) {
+            using(var context = new Context()) {
                 return (from l in context.Loai
                         select l).ToList<Loai>();
             }
         }
 
         public static int SelectLastLoai() {
-            using (var context = new Context()) {
+            using(var context = new Context()) {
                 var loai = from l in context.Loai
                            select l;
                 int n = 0;
-                foreach (Loai l in loai) {
+                foreach(Loai l in loai) {
                     n = l.MaLoai;
                 }
                 return n;
@@ -54,7 +197,7 @@ namespace Model {
         }
 
         public static void InsertLoai(Loai loai) {
-            using (var context = new Context()) {
+            using(var context = new Context()) {
                 var l = new Loai();
                 l.MaLoai = Int32.Parse(context.Loai.OrderByDescending(t => t.MaLoai).Select(t => t.MaLoai).First().ToString()) + 1;
                 //l.MaLoai = SelectLastLoai();
@@ -69,11 +212,11 @@ namespace Model {
         }
 
         public static void UpdateLoai(Loai loai) {
-            using (var context = new Context()) {
+            using(var context = new Context()) {
                 var listLoai = from l in context.Loai
                                where l.MaLoai == loai.MaLoai
                                select l;
-                foreach (Loai l in listLoai) {
+                foreach(Loai l in listLoai) {
                     l.TenLoai = loai.TenLoai;
                     l.DonGia = loai.DonGia;
                     l.DonVi = loai.DonVi;
@@ -85,11 +228,11 @@ namespace Model {
         }
 
         public static void DeleteLoai(int maLoai) {
-            using (var context = new Context()) {
+            using(var context = new Context()) {
                 var listLoai = from l in context.Loai
                                where l.MaLoai == maLoai
                                select l;
-                foreach (Loai tb in listLoai) {
+                foreach(Loai tb in listLoai) {
                     context.Loai.Remove(tb);
                 }
                 context.SaveChanges();

@@ -69,16 +69,15 @@
             this.cb_ThongKe_ChonLoai = new System.Windows.Forms.ComboBox();
             this.dtp_ThongKe = new System.Windows.Forms.DateTimePicker();
             this.btn_ThongKe = new System.Windows.Forms.Button();
-            this.cb_ThongKe_ChonTinhTrang = new System.Windows.Forms.ComboBox();
             this.dgv_ThongKe = new System.Windows.Forms.DataGridView();
-            this.loaiTableAdapter = new WinForm.ThietBiDataSetTableAdapters.LoaiTableAdapter();
-            this.loaiTableAdapter1 = new WinForm.QuanLyVatTuDataSetTableAdapters.LoaiTableAdapter();
             this.clnMaThietBi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clnLoaiThietBi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clnDonGia = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clnDonVi = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clnThongSoKyThuat = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clnNamSanXuat = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.loaiTableAdapter = new WinForm.ThietBiDataSetTableAdapters.LoaiTableAdapter();
+            this.loaiTableAdapter1 = new WinForm.QuanLyVatTuDataSetTableAdapters.LoaiTableAdapter();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -461,16 +460,14 @@
             // 
             // tableLayoutPanel2
             // 
-            this.tableLayoutPanel2.ColumnCount = 4;
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tableLayoutPanel2.ColumnCount = 3;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25F));
             this.tableLayoutPanel2.Controls.Add(this.cb_ThongKe_ChonLoai, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.dtp_ThongKe, 1, 0);
-            this.tableLayoutPanel2.Controls.Add(this.btn_ThongKe, 3, 0);
-            this.tableLayoutPanel2.Controls.Add(this.cb_ThongKe_ChonTinhTrang, 2, 0);
             this.tableLayoutPanel2.Controls.Add(this.dgv_ThongKe, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.btn_ThongKe, 2, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -486,36 +483,27 @@
             this.cb_ThongKe_ChonLoai.FormattingEnabled = true;
             this.cb_ThongKe_ChonLoai.Location = new System.Drawing.Point(3, 10);
             this.cb_ThongKe_ChonLoai.Name = "cb_ThongKe_ChonLoai";
-            this.cb_ThongKe_ChonLoai.Size = new System.Drawing.Size(160, 21);
+            this.cb_ThongKe_ChonLoai.Size = new System.Drawing.Size(216, 21);
             this.cb_ThongKe_ChonLoai.TabIndex = 1;
             // 
             // dtp_ThongKe
             // 
             this.dtp_ThongKe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.dtp_ThongKe.Location = new System.Drawing.Point(169, 11);
+            this.dtp_ThongKe.Location = new System.Drawing.Point(225, 11);
             this.dtp_ThongKe.Name = "dtp_ThongKe";
-            this.dtp_ThongKe.Size = new System.Drawing.Size(160, 20);
+            this.dtp_ThongKe.Size = new System.Drawing.Size(216, 20);
             this.dtp_ThongKe.TabIndex = 2;
             // 
             // btn_ThongKe
             // 
             this.btn_ThongKe.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_ThongKe.Location = new System.Drawing.Point(501, 9);
+            this.btn_ThongKe.Location = new System.Drawing.Point(447, 9);
             this.btn_ThongKe.Name = "btn_ThongKe";
-            this.btn_ThongKe.Size = new System.Drawing.Size(162, 23);
+            this.btn_ThongKe.Size = new System.Drawing.Size(216, 23);
             this.btn_ThongKe.TabIndex = 4;
             this.btn_ThongKe.Text = "Thống kê";
             this.btn_ThongKe.UseVisualStyleBackColor = true;
             this.btn_ThongKe.Click += new System.EventHandler(this.btn_ThongKe_Click);
-            // 
-            // cb_ThongKe_ChonTinhTrang
-            // 
-            this.cb_ThongKe_ChonTinhTrang.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.cb_ThongKe_ChonTinhTrang.FormattingEnabled = true;
-            this.cb_ThongKe_ChonTinhTrang.Location = new System.Drawing.Point(335, 10);
-            this.cb_ThongKe_ChonTinhTrang.Name = "cb_ThongKe_ChonTinhTrang";
-            this.cb_ThongKe_ChonTinhTrang.Size = new System.Drawing.Size(160, 21);
-            this.cb_ThongKe_ChonTinhTrang.TabIndex = 3;
             // 
             // dgv_ThongKe
             // 
@@ -527,20 +515,12 @@
             this.clnDonVi,
             this.clnThongSoKyThuat,
             this.clnNamSanXuat});
-            this.tableLayoutPanel2.SetColumnSpan(this.dgv_ThongKe, 4);
+            this.tableLayoutPanel2.SetColumnSpan(this.dgv_ThongKe, 3);
             this.dgv_ThongKe.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv_ThongKe.Location = new System.Drawing.Point(3, 45);
             this.dgv_ThongKe.Name = "dgv_ThongKe";
             this.dgv_ThongKe.Size = new System.Drawing.Size(660, 332);
             this.dgv_ThongKe.TabIndex = 4;
-            // 
-            // loaiTableAdapter
-            // 
-            this.loaiTableAdapter.ClearBeforeFill = true;
-            // 
-            // loaiTableAdapter1
-            // 
-            this.loaiTableAdapter1.ClearBeforeFill = true;
             // 
             // clnMaThietBi
             // 
@@ -577,6 +557,14 @@
             this.clnNamSanXuat.HeaderText = "Năm sản xuất";
             this.clnNamSanXuat.Name = "clnNamSanXuat";
             this.clnNamSanXuat.ReadOnly = true;
+            // 
+            // loaiTableAdapter
+            // 
+            this.loaiTableAdapter.ClearBeforeFill = true;
+            // 
+            // loaiTableAdapter1
+            // 
+            this.loaiTableAdapter1.ClearBeforeFill = true;
             // 
             // MainForm
             // 
@@ -655,7 +643,6 @@
         private System.Windows.Forms.ComboBox cb_ThongKe_ChonLoai;
         private System.Windows.Forms.DateTimePicker dtp_ThongKe;
         private System.Windows.Forms.Button btn_ThongKe;
-        private System.Windows.Forms.ComboBox cb_ThongKe_ChonTinhTrang;
         private System.Windows.Forms.DataGridView dgv_ThongKe;
         private System.Windows.Forms.DataGridViewTextBoxColumn clnMaThietBi;
         private System.Windows.Forms.DataGridViewTextBoxColumn clnLoaiThietBi;
