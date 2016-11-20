@@ -20,12 +20,13 @@ namespace WinForm {
             this.loaiTableAdapter1.Fill(this.quanLyVatTuDataSet.Loai);
             // TODO: This line of code loads data into the 'thietBiDataSet.Loai' table. You can move, or remove it, as needed.
             this.loaiTableAdapter.Fill(this.thietBiDataSet.Loai);
-            
+
             //Manual
             List<Loai> listLoai = Database.selectLoai();
-            foreach (Loai l in listLoai) {
+            foreach(Loai l in listLoai) {
                 cb_ThongKe_ChonLoai.Items.Add(l.TenLoai);
             }
+            cb_ThongKe_ChonLoai.SelectedIndex = 0;
 
             ////Testing ground
             //List<ThietBi> list = new List<ThietBi>();
@@ -59,7 +60,14 @@ namespace WinForm {
         }
 
         private void btn_ThongKe_Click(object sender, EventArgs e) {
-
+            List<ThietBi> listThietBi = Database.ThongKeTheoLoai(cb_ThongKe_ChonLoai.Text, dtp_ThongKe.Value.ToShortDateString());
+            Loai loai = Database.selectLoaiByTenLoai(cb_ThongKe_ChonLoai.Text);
+            dgv_ThongKe.Rows.Clear();
+            //mã thiết bị, loại, đơn giá, đơn vị, thông số kỹ thuật, năm sản xuất
+            foreach(ThietBi tb in listThietBi) {
+                string[] row = new string[] { tb.MaThietBi.ToString(), loai.TenLoai, loai.DonGia.ToString(), loai.DonVi.ToString(), loai.ThongSoKyThuat, loai.NamSanXuat, tb.NgayDuaVaoSuDung.ToString(), tb.TinhTrang.ToString() };
+                dgv_ThongKe.Rows.Add(row);
+            }
         }
     }
 }

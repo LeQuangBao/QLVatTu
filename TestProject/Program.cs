@@ -10,7 +10,6 @@ namespace TestProject {
         static void Main(string[] args) {
             using (var context = new Context()) {
                 DateTime time = new DateTime(2016,11,15);
-                List<ThietBi> tbb = Database.ThongKeTheoTinhTrang(2, time);
 
                 //select without condition
                 var loai = from l in context.Loai
