@@ -17,7 +17,7 @@ namespace Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ThietBi()
         {
-            this.PhieuGiaoNhan = new HashSet<PhieuGiaoNhan>();
+            this.ChiTietPhieuGiaoNhan = new HashSet<ChiTietPhieuGiaoNhan>();
             this.PhieuNhap = new HashSet<PhieuNhap>();
         }
     
@@ -26,10 +26,10 @@ namespace Model
         public Nullable<System.DateTime> NgayDuaVaoSuDung { get; set; }
         public int TinhTrang { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ChiTietPhieuGiaoNhan> ChiTietPhieuGiaoNhan { get; set; }
         public virtual Loai Loai { get; set; }
         public virtual TinhTrang TinhTrang1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PhieuGiaoNhan> PhieuGiaoNhan { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PhieuNhap> PhieuNhap { get; set; }
     }

@@ -12,22 +12,20 @@ namespace Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Loai
+    public partial class PhieuGiaoNhan
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Loai()
+        public PhieuGiaoNhan()
         {
             this.ThietBi = new HashSet<ThietBi>();
         }
     
-        public int MaLoai { get; set; }
-        public string TenLoai { get; set; }
-        public Nullable<int> DonGia { get; set; }
-        public int DonVi { get; set; }
-        public string ThongSoKyThuat { get; set; }
-        public string NamSanXuat { get; set; }
+        public int MaPhieuGiaoNhan { get; set; }
+        public string MaLoaiGiaoNhan { get; set; }
+        public int MaDonVi { get; set; }
+        public System.DateTime NgayGiaoNhan { get; set; }
     
-        public virtual DonViTinh DonViTinh { get; set; }
+        public virtual DonVi DonVi { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ThietBi> ThietBi { get; set; }
     }

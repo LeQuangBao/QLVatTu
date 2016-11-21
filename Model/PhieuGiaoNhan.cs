@@ -17,16 +17,15 @@ namespace Model
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public PhieuGiaoNhan()
         {
-            this.ThietBi = new HashSet<ThietBi>();
+            this.ChiTietPhieuGiaoNhan = new HashSet<ChiTietPhieuGiaoNhan>();
         }
     
         public int MaPhieuGiaoNhan { get; set; }
-        public string MaLoaiGiaoNhan { get; set; }
         public int MaDonVi { get; set; }
         public System.DateTime NgayGiaoNhan { get; set; }
     
-        public virtual DonVi DonVi { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ThietBi> ThietBi { get; set; }
+        public virtual ICollection<ChiTietPhieuGiaoNhan> ChiTietPhieuGiaoNhan { get; set; }
+        public virtual DonVi DonVi { get; set; }
     }
 }

@@ -12,7 +12,6 @@
           </Key>
           <Property Name="MaPhieuGiaoNhan" Type="int" Nullable="false" />
           <Property Name="MaThietBi" Type="int" Nullable="false" />
-          <Property Name="TinhTrang" Type="int" />
         </EntityType>
         <EntityType Name="ChiTietPhieuNhap">
           <Key>
@@ -48,6 +47,13 @@
           <Property Name="ThongSoKyThuat" Type="nvarchar" MaxLength="500" />
           <Property Name="NamSanXuat" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="LoaiGiaoNhan">
+          <Key>
+            <PropertyRef Name="MaLoaiGiaoNhan" />
+          </Key>
+          <Property Name="MaLoaiGiaoNhan" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GhiChu" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
         <EntityType Name="NhaCungCap">
           <Key>
             <PropertyRef Name="MaNhaCungCap" />
@@ -62,6 +68,7 @@
             <PropertyRef Name="MaPhieuGiaoNhan" />
           </Key>
           <Property Name="MaPhieuGiaoNhan" Type="int" Nullable="false" />
+          <Property Name="MaLoaiGiaoNhan" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="MaDonVi" Type="int" Nullable="false" />
           <Property Name="NgayGiaoNhan" Type="date" Nullable="false" />
         </EntityType>
@@ -214,6 +221,7 @@
           <EntitySet Name="DonVi" EntityType="Self.DonVi" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DonViTinh" EntityType="Self.DonViTinh" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Loai" EntityType="Self.Loai" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoaiGiaoNhan" EntityType="Self.LoaiGiaoNhan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NhaCungCap" EntityType="Self.NhaCungCap" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhieuGiaoNhan" EntityType="Self.PhieuGiaoNhan" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PhieuNhap" EntityType="Self.PhieuNhap" Schema="dbo" store:Type="Tables" />
@@ -262,17 +270,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="QuanLyVatTuModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="ChiTietPhieuGiaoNhan">
-          <Key>
-            <PropertyRef Name="MaPhieuGiaoNhan" />
-            <PropertyRef Name="MaThietBi" />
-          </Key>
-          <Property Name="MaPhieuGiaoNhan" Type="Int32" Nullable="false" />
-          <Property Name="MaThietBi" Type="Int32" Nullable="false" />
-          <Property Name="TinhTrang" Type="Int32" />
-          <NavigationProperty Name="PhieuGiaoNhan" Relationship="Self.FK_ChiTietPhieuGiaoNhan_PhieuGiaoNhan" FromRole="ChiTietPhieuGiaoNhan" ToRole="PhieuGiaoNhan" />
-          <NavigationProperty Name="ThietBi" Relationship="Self.FK_ChiTietPhieuGiaoNhan_ThietBi" FromRole="ChiTietPhieuGiaoNhan" ToRole="ThietBi" />
-        </EntityType>
         <EntityType Name="DonVi">
           <Key>
             <PropertyRef Name="MaDonVi" />
@@ -303,6 +300,13 @@
           <NavigationProperty Name="DonViTinh" Relationship="Self.FK_Loai_DonViTinh" FromRole="Loai" ToRole="DonViTinh" />
           <NavigationProperty Name="ThietBi" Relationship="Self.FK_ThietBi_Loai" FromRole="Loai" ToRole="ThietBi" />
         </EntityType>
+        <EntityType Name="LoaiGiaoNhan">
+          <Key>
+            <PropertyRef Name="MaLoaiGiaoNhan" />
+          </Key>
+          <Property Name="MaLoaiGiaoNhan" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GhiChu" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
         <EntityType Name="NhaCungCap">
           <Key>
             <PropertyRef Name="MaNhaCungCap" />
@@ -318,10 +322,11 @@
             <PropertyRef Name="MaPhieuGiaoNhan" />
           </Key>
           <Property Name="MaPhieuGiaoNhan" Type="Int32" Nullable="false" />
+          <Property Name="MaLoaiGiaoNhan" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="MaDonVi" Type="Int32" Nullable="false" />
           <Property Name="NgayGiaoNhan" Type="DateTime" Nullable="false" Precision="0" />
-          <NavigationProperty Name="ChiTietPhieuGiaoNhan" Relationship="Self.FK_ChiTietPhieuGiaoNhan_PhieuGiaoNhan" FromRole="PhieuGiaoNhan" ToRole="ChiTietPhieuGiaoNhan" />
           <NavigationProperty Name="DonVi" Relationship="Self.FK_PhieuGiaoNhan_DonVi" FromRole="PhieuGiaoNhan" ToRole="DonVi" />
+          <NavigationProperty Name="ThietBi" Relationship="Self.ChiTietPhieuGiaoNhan" FromRole="PhieuGiaoNhan" ToRole="ThietBi" />
         </EntityType>
         <EntityType Name="PhieuNhap">
           <Key>
@@ -360,35 +365,11 @@
           <Property Name="MaLoai" Type="Int32" Nullable="false" />
           <Property Name="NgayDuaVaoSuDung" Type="DateTime" Precision="0" />
           <Property Name="TinhTrang" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ChiTietPhieuGiaoNhan" Relationship="Self.FK_ChiTietPhieuGiaoNhan_ThietBi" FromRole="ThietBi" ToRole="ChiTietPhieuGiaoNhan" />
           <NavigationProperty Name="Loai" Relationship="Self.FK_ThietBi_Loai" FromRole="ThietBi" ToRole="Loai" />
           <NavigationProperty Name="TinhTrang1" Relationship="Self.FK_ThietBi_TinhTrang" FromRole="ThietBi" ToRole="TinhTrang" />
+          <NavigationProperty Name="PhieuGiaoNhan" Relationship="Self.ChiTietPhieuGiaoNhan" FromRole="ThietBi" ToRole="PhieuGiaoNhan" />
           <NavigationProperty Name="PhieuNhap" Relationship="Self.ChiTietPhieuNhap" FromRole="ThietBi" ToRole="PhieuNhap" />
         </EntityType>
-        <Association Name="FK_ChiTietPhieuGiaoNhan_PhieuGiaoNhan">
-          <End Role="PhieuGiaoNhan" Type="Self.PhieuGiaoNhan" Multiplicity="1" />
-          <End Role="ChiTietPhieuGiaoNhan" Type="Self.ChiTietPhieuGiaoNhan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PhieuGiaoNhan">
-              <PropertyRef Name="MaPhieuGiaoNhan" />
-            </Principal>
-            <Dependent Role="ChiTietPhieuGiaoNhan">
-              <PropertyRef Name="MaPhieuGiaoNhan" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ChiTietPhieuGiaoNhan_ThietBi">
-          <End Role="ThietBi" Type="Self.ThietBi" Multiplicity="1" />
-          <End Role="ChiTietPhieuGiaoNhan" Type="Self.ChiTietPhieuGiaoNhan" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ThietBi">
-              <PropertyRef Name="MaThietBi" />
-            </Principal>
-            <Dependent Role="ChiTietPhieuGiaoNhan">
-              <PropertyRef Name="MaThietBi" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_PhieuGiaoNhan_DonVi">
           <End Role="DonVi" Type="Self.DonVi" Multiplicity="1" />
           <End Role="PhieuGiaoNhan" Type="Self.PhieuGiaoNhan" Multiplicity="*" />
@@ -449,29 +430,25 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="ChiTietPhieuGiaoNhan">
+          <End Role="PhieuGiaoNhan" Type="Self.PhieuGiaoNhan" Multiplicity="*" />
+          <End Role="ThietBi" Type="Self.ThietBi" Multiplicity="*" />
+        </Association>
         <Association Name="ChiTietPhieuNhap">
           <End Role="PhieuNhap" Type="Self.PhieuNhap" Multiplicity="*" />
           <End Role="ThietBi" Type="Self.ThietBi" Multiplicity="*" />
         </Association>
         <EntityContainer Name="Context" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ChiTietPhieuGiaoNhan" EntityType="Self.ChiTietPhieuGiaoNhan" />
           <EntitySet Name="DonVi" EntityType="Self.DonVi" />
           <EntitySet Name="DonViTinh" EntityType="Self.DonViTinh" />
           <EntitySet Name="Loai" EntityType="Self.Loai" />
+          <EntitySet Name="LoaiGiaoNhan" EntityType="Self.LoaiGiaoNhan" />
           <EntitySet Name="NhaCungCap" EntityType="Self.NhaCungCap" />
           <EntitySet Name="PhieuGiaoNhan" EntityType="Self.PhieuGiaoNhan" />
           <EntitySet Name="PhieuNhap" EntityType="Self.PhieuNhap" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="TinhTrang" EntityType="Self.TinhTrang" />
           <EntitySet Name="ThietBi" EntityType="Self.ThietBi" />
-          <AssociationSet Name="FK_ChiTietPhieuGiaoNhan_PhieuGiaoNhan" Association="Self.FK_ChiTietPhieuGiaoNhan_PhieuGiaoNhan">
-            <End Role="PhieuGiaoNhan" EntitySet="PhieuGiaoNhan" />
-            <End Role="ChiTietPhieuGiaoNhan" EntitySet="ChiTietPhieuGiaoNhan" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ChiTietPhieuGiaoNhan_ThietBi" Association="Self.FK_ChiTietPhieuGiaoNhan_ThietBi">
-            <End Role="ThietBi" EntitySet="ThietBi" />
-            <End Role="ChiTietPhieuGiaoNhan" EntitySet="ChiTietPhieuGiaoNhan" />
-          </AssociationSet>
           <AssociationSet Name="FK_PhieuGiaoNhan_DonVi" Association="Self.FK_PhieuGiaoNhan_DonVi">
             <End Role="DonVi" EntitySet="DonVi" />
             <End Role="PhieuGiaoNhan" EntitySet="PhieuGiaoNhan" />
@@ -492,6 +469,10 @@
             <End Role="TinhTrang" EntitySet="TinhTrang" />
             <End Role="ThietBi" EntitySet="ThietBi" />
           </AssociationSet>
+          <AssociationSet Name="ChiTietPhieuGiaoNhan" Association="Self.ChiTietPhieuGiaoNhan">
+            <End Role="PhieuGiaoNhan" EntitySet="PhieuGiaoNhan" />
+            <End Role="ThietBi" EntitySet="ThietBi" />
+          </AssociationSet>
           <AssociationSet Name="ChiTietPhieuNhap" Association="Self.ChiTietPhieuNhap">
             <End Role="PhieuNhap" EntitySet="PhieuNhap" />
             <End Role="ThietBi" EntitySet="ThietBi" />
@@ -503,15 +484,6 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="QuanLyVatTuModelStoreContainer" CdmEntityContainer="Context">
-          <EntitySetMapping Name="ChiTietPhieuGiaoNhan">
-            <EntityTypeMapping TypeName="QuanLyVatTuModel.ChiTietPhieuGiaoNhan">
-              <MappingFragment StoreEntitySet="ChiTietPhieuGiaoNhan">
-                <ScalarProperty Name="MaPhieuGiaoNhan" ColumnName="MaPhieuGiaoNhan" />
-                <ScalarProperty Name="MaThietBi" ColumnName="MaThietBi" />
-                <ScalarProperty Name="TinhTrang" ColumnName="TinhTrang" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="DonVi">
             <EntityTypeMapping TypeName="QuanLyVatTuModel.DonVi">
               <MappingFragment StoreEntitySet="DonVi">
@@ -541,6 +513,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="LoaiGiaoNhan">
+            <EntityTypeMapping TypeName="QuanLyVatTuModel.LoaiGiaoNhan">
+              <MappingFragment StoreEntitySet="LoaiGiaoNhan">
+                <ScalarProperty Name="MaLoaiGiaoNhan" ColumnName="MaLoaiGiaoNhan" />
+                <ScalarProperty Name="GhiChu" ColumnName="GhiChu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="NhaCungCap">
             <EntityTypeMapping TypeName="QuanLyVatTuModel.NhaCungCap">
               <MappingFragment StoreEntitySet="NhaCungCap">
@@ -555,6 +535,7 @@
             <EntityTypeMapping TypeName="QuanLyVatTuModel.PhieuGiaoNhan">
               <MappingFragment StoreEntitySet="PhieuGiaoNhan">
                 <ScalarProperty Name="MaPhieuGiaoNhan" ColumnName="MaPhieuGiaoNhan" />
+                <ScalarProperty Name="MaLoaiGiaoNhan" ColumnName="MaLoaiGiaoNhan" />
                 <ScalarProperty Name="MaDonVi" ColumnName="MaDonVi" />
                 <ScalarProperty Name="NgayGiaoNhan" ColumnName="NgayGiaoNhan" />
               </MappingFragment>
@@ -599,6 +580,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <AssociationSetMapping Name="ChiTietPhieuGiaoNhan" TypeName="QuanLyVatTuModel.ChiTietPhieuGiaoNhan" StoreEntitySet="ChiTietPhieuGiaoNhan">
+            <EndProperty Name="PhieuGiaoNhan">
+              <ScalarProperty Name="MaPhieuGiaoNhan" ColumnName="MaPhieuGiaoNhan" />
+            </EndProperty>
+            <EndProperty Name="ThietBi">
+              <ScalarProperty Name="MaThietBi" ColumnName="MaThietBi" />
+            </EndProperty>
+          </AssociationSetMapping>
           <AssociationSetMapping Name="ChiTietPhieuNhap" TypeName="QuanLyVatTuModel.ChiTietPhieuNhap" StoreEntitySet="ChiTietPhieuNhap">
             <EndProperty Name="PhieuNhap">
               <ScalarProperty Name="MaPhieuNhap" ColumnName="MaPhieuNhap" />

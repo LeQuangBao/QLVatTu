@@ -16,7 +16,7 @@ namespace Model
     public partial class Context : DbContext
     {
         public Context()
-            : base(@"metadata=res://*/Model.csdl|res://*/Model.ssdl|res://*/Model.msl;provider=System.Data.SqlClient;provider connection string=';data source=.\sora_server;initial catalog=QuanLyVatTu;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework'")
+            : base("metadata=res://*/Model.csdl|res://*/Model.ssdl|res://*/Model.msl;provider=System.Data.SqlClient;provider connection string=';data source=.\\sora_server;initial catalog=QuanLyVatTu;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework';")
         {
         }
     
@@ -25,10 +25,10 @@ namespace Model
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<ChiTietPhieuGiaoNhan> ChiTietPhieuGiaoNhan { get; set; }
         public virtual DbSet<DonVi> DonVi { get; set; }
         public virtual DbSet<DonViTinh> DonViTinh { get; set; }
         public virtual DbSet<Loai> Loai { get; set; }
+        public virtual DbSet<LoaiGiaoNhan> LoaiGiaoNhan { get; set; }
         public virtual DbSet<NhaCungCap> NhaCungCap { get; set; }
         public virtual DbSet<PhieuGiaoNhan> PhieuGiaoNhan { get; set; }
         public virtual DbSet<PhieuNhap> PhieuNhap { get; set; }

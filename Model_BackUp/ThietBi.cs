@@ -12,23 +12,25 @@ namespace Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Loai
+    public partial class ThietBi
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Loai()
+        public ThietBi()
         {
-            this.ThietBi = new HashSet<ThietBi>();
+            this.PhieuGiaoNhan = new HashSet<PhieuGiaoNhan>();
+            this.PhieuNhap = new HashSet<PhieuNhap>();
         }
     
+        public int MaThietBi { get; set; }
         public int MaLoai { get; set; }
-        public string TenLoai { get; set; }
-        public Nullable<int> DonGia { get; set; }
-        public int DonVi { get; set; }
-        public string ThongSoKyThuat { get; set; }
-        public string NamSanXuat { get; set; }
+        public Nullable<System.DateTime> NgayDuaVaoSuDung { get; set; }
+        public int TinhTrang { get; set; }
     
-        public virtual DonViTinh DonViTinh { get; set; }
+        public virtual Loai Loai { get; set; }
+        public virtual TinhTrang TinhTrang1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ThietBi> ThietBi { get; set; }
+        public virtual ICollection<PhieuGiaoNhan> PhieuGiaoNhan { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PhieuNhap> PhieuNhap { get; set; }
     }
 }
