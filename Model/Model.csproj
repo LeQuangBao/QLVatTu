@@ -54,6 +54,7 @@
     <Compile Include="ChiTietPhieuGiaoNhan.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Database.cs" />
     <Compile Include="DonVi.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>

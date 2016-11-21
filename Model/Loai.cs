@@ -19,6 +19,15 @@ namespace Model
         {
             this.ThietBi = new HashSet<ThietBi>();
         }
+
+        public Loai(int maLoai, string tenLoai, int donGia, int donVi, string thongSoKyThuat, string namSanXuat) {
+            MaLoai = maLoai;
+            TenLoai = TenLoai;
+            DonGia = donGia;
+            DonVi = DonVi;
+            ThongSoKyThuat = thongSoKyThuat;
+            NamSanXuat = NamSanXuat;
+        }
     
         public int MaLoai { get; set; }
         public string TenLoai { get; set; }
