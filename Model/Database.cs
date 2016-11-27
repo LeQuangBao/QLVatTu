@@ -211,9 +211,15 @@ namespace Model {
 
         public static List<TinhTrang> selectTinhTrang() {
             using(var context = new Context()) {
-                return (from t in context.TinhTrang select t).ToList<TinhTrang>();
+                return (from t in context.TinhTrang select t).ToList();
             }
         }
+        
+        public static List<DonVi> selectDonVi() {
+            using(var context = new Context()) {
+                return (from t in context.DonVi select t).ToList();
+            }
+        }        
 
         //Loai
         public static List<Loai> selectLoai() {

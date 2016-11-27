@@ -22,11 +22,11 @@ namespace Model
 
         public Loai(int maLoai, string tenLoai, int donGia, int donVi, string thongSoKyThuat, string namSanXuat) {
             MaLoai = maLoai;
-            TenLoai = TenLoai;
+            TenLoai = tenLoai;
             DonGia = donGia;
             DonVi = DonVi;
             ThongSoKyThuat = thongSoKyThuat;
-            NamSanXuat = NamSanXuat;
+            NamSanXuat = namSanXuat;
         }
     
         public int MaLoai { get; set; }

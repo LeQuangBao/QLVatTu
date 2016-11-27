@@ -17,9 +17,9 @@ namespace WinForm {
 
         private void MainForm_Load(object sender, EventArgs e) {
             // TODO: This line of code loads data into the 'quanLyVatTuDataSet.Loai' table. You can move, or remove it, as needed.
-            this.loaiTableAdapter1.Fill(this.quanLyVatTuDataSet.Loai);
+            loaiTableAdapter1.Fill(quanLyVatTuDataSet.Loai);
             // TODO: This line of code loads data into the 'thietBiDataSet.Loai' table. You can move, or remove it, as needed.
-            this.loaiTableAdapter.Fill(this.thietBiDataSet.Loai);
+            loaiTableAdapter.Fill(thietBiDataSet.Loai);
 
             //Manual
             List<Loai> listLoai = Database.selectLoai();
@@ -36,7 +36,11 @@ namespace WinForm {
         }
 
         private void btn_SuaLoai_Click(object sender, EventArgs e) {
-            Database.UpdateLoai(new Loai(Int32.Parse(lb_MaLoai.Text), tb_TenLoai.Text, Int32.Parse(tb_DonGia.Text), Int32.Parse(tb_DonVi.Text), tb_ThongSoKyThuat.Text, tb_NamSanXuat.Text));
+            int donVi = tb_DonGia.Text == "Cái" ? 0 : 1;
+            
+            Database.UpdateLoai(new Loai(Int32.Parse(lb_MaLoai.Text), tb_TenLoai.Text, Int32.Parse(tb_DonGia.Text), donVi, tb_ThongSoKyThuat.Text, tb_NamSanXuat.Text));
+            dgv_Loai.Rows.Clear();
+            loaiTableAdapter1.Fill(quanLyVatTuDataSet.Loai);
         }
 
         private void btn_XoaLoai_Click(object sender, EventArgs e) {
@@ -52,8 +56,8 @@ namespace WinForm {
             int row = dgv_Loai.CurrentCell.RowIndex;
             lb_MaLoai.Text = dgv_Loai.Rows[row].Cells[0].Value.ToString();
             tb_TenLoai.Text = dgv_Loai.Rows[row].Cells[1].Value.ToString();
-            tb_DonGia.Text = dgv_Loai.Rows[row].Cells[2].Value.ToString();
-            tb_DonVi.Text = dgv_Loai.Rows[row].Cells[3].Value.ToString();
+            tb_DonVi.Text = dgv_Loai.Rows[row].Cells[2].Value.ToString();
+            tb_DonGia.Text = dgv_Loai.Rows[row].Cells[3].Value.ToString();
             tb_ThongSoKyThuat.Text = dgv_Loai.Rows[row].Cells[4].Value.ToString();
             tb_NamSanXuat.Text = dgv_Loai.Rows[row].Cells[5].Value.ToString();
             return;
@@ -61,11 +65,18 @@ namespace WinForm {
 
         private void btn_ThongKe_Click(object sender, EventArgs e) {
             List<ThietBi> listThietBi = Database.ThongKeTheoLoai(cb_ThongKe_ChonLoai.Text, dtp_ThongKe.Value.ToShortDateString());
+            List<DonVi> listDonVi = Database.selectDonVi();
+            List<TinhTrang> listTinhTrang = Database.selectTinhTrang();
             Loai loai = Database.selectLoaiByTenLoai(cb_ThongKe_ChonLoai.Text);
             dgv_ThongKe.Rows.Clear();
             //mã thiết bị, loại, đơn giá, đơn vị, thông số kỹ thuật, năm sản xuất
             foreach(ThietBi tb in listThietBi) {
-                string[] row = new string[] { tb.MaThietBi.ToString(), loai.TenLoai, loai.DonGia.ToString(), loai.DonVi.ToString(), loai.ThongSoKyThuat, loai.NamSanXuat, tb.NgayDuaVaoSuDung.ToString(), tb.TinhTrang.ToString() };
+                string tinhTrang = (from l in listTinhTrang
+                                    where l.MaTinhTrang == tb.TinhTrang
+                                    select l.TenTinhTrang).FirstOrDefault().ToString();
+                string donVi = loai.DonVi == 0 ? "Cái" : "Bộ";
+                string[] row = new string[] { tb.MaThietBi.ToString(), loai.TenLoai, loai.DonGia.ToString(), donVi, loai.ThongSoKyThuat, loai.NamSanXuat, tb.NgayDuaVaoSuDung.ToString(), tinhTrang };
+
                 dgv_ThongKe.Rows.Add(row);
             }
         }
