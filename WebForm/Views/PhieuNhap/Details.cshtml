@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Details";
+    List<List<string>> chiTietLoai = ViewBag.ChiTietLoai as List<List<string>>;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -26,8 +27,34 @@
         <dd>
             @Html.DisplayFor(model => model.NhaCungCap.TenNhaCungCap)
         </dd>
-
     </dl>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Mã thiết bị</th>
+                <th>Tên thiết bị</th>
+                <th>Đơn giá</th>
+                <th>Thông số kỹ thuật</th>
+                <th>Năm sản xuất</th>
+            </tr>
+        </thead>
+        <tbody>
+
+        @{
+            foreach(List<string> listLoai in chiTietLoai) {
+                <tr>
+                    @foreach(string chiTiet in listLoai) {
+                        <td>
+                            @chiTiet.ToString()
+                        </td>
+                    }
+                </tr>
+            }
+
+        }
+        </tbody>
+    </table>
+
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.MaPhieuNhap }) |

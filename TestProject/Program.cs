@@ -22,14 +22,14 @@ namespace TestProject {
                               select tb;
 
                 //select pivot table
-                var phieuGiaoNhan = from pgn in context.PhieuGiaoNhan
-                                    where pgn.MaLoaiGiaoNhan == "1"
-                                    select pgn;
+                //var phieuGiaoNhan = from pgn in context.PhieuGiaoNhan
+                //                    where pgn.MaLoaiGiaoNhan == "1"
+                //                    select pgn;
 
-                List<ThietBi> thietBi1 = new List<ThietBi>();
-                foreach (PhieuGiaoNhan pgn in phieuGiaoNhan) {
-                    thietBi1.AddRange(pgn.ThietBi.ToList());
-                }
+                //List<ThietBi> thietBi1 = new List<ThietBi>();
+                //foreach (PhieuGiaoNhan pgn in phieuGiaoNhan) {
+                //    thietBi1.AddRange(pgn.ThietBi.ToList());
+                //}
 
                 // select elements from List
                 //var sg = thietBi1.Where(tb => tb.MaThietBi == 8);
@@ -79,8 +79,6 @@ namespace TestProject {
                         list2.Add(i);
                     }
                 }
-                List<int> list3 = UtilityArray.RemoveIntersect(list1, list2);
-                List<int> list4 = UtilityArray.UniqueMerge(list1, list2);
             }
         }
     }

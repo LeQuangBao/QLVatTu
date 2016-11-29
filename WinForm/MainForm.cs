@@ -22,7 +22,7 @@ namespace WinForm {
             loaiTableAdapter.Fill(thietBiDataSet.Loai);
 
             //Manual
-            List<Loai> listLoai = Database.selectLoai();
+            List<Loai> listLoai = Database.SelectLoai();
             foreach(Loai l in listLoai) {
                 cb_ThongKe_ChonLoai.Items.Add(l.TenLoai);
             }
@@ -65,9 +65,9 @@ namespace WinForm {
 
         private void btn_ThongKe_Click(object sender, EventArgs e) {
             List<ThietBi> listThietBi = Database.ThongKeTheoLoai(cb_ThongKe_ChonLoai.Text, dtp_ThongKe.Value.ToShortDateString());
-            List<DonVi> listDonVi = Database.selectDonVi();
-            List<TinhTrang> listTinhTrang = Database.selectTinhTrang();
-            Loai loai = Database.selectLoaiByTenLoai(cb_ThongKe_ChonLoai.Text);
+            List<DonVi> listDonVi = Database.SelectDonVi();
+            List<TinhTrang> listTinhTrang = Database.SelectTinhTrang();
+            Loai loai = Database.SelectLoaiByTenLoai(cb_ThongKe_ChonLoai.Text);
             dgv_ThongKe.Rows.Clear();
             //mã thiết bị, loại, đơn giá, đơn vị, thông số kỹ thuật, năm sản xuất
             foreach(ThietBi tb in listThietBi) {

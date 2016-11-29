@@ -199,6 +199,7 @@
     <Compile Include="Controllers\HelloWorldController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\PhieuGiaoNhanController.cs" />
     <Compile Include="Controllers\PhieuNhapController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -276,6 +277,12 @@
     <Content Include="Views\PhieuNhap\Details.cshtml" />
     <Content Include="Views\PhieuNhap\Edit.cshtml" />
     <Content Include="Views\PhieuNhap\Index.cshtml" />
+    <Content Include="Views\PhieuGiaoNhan\Create.cshtml" />
+    <Content Include="Views\PhieuGiaoNhan\Delete.cshtml" />
+    <Content Include="Views\PhieuGiaoNhan\Details.cshtml" />
+    <Content Include="Views\PhieuGiaoNhan\Edit.cshtml" />
+    <Content Include="Views\PhieuGiaoNhan\Index.cshtml" />
+    <Content Include="Views\PhieuNhap\CreateDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

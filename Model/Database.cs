@@ -17,14 +17,44 @@ namespace Model {
         public const int ONG_NGHIEM = 2;
         public const int MAY_CHIEU_SHAFT = 3;
         public const int DEN_LED = 4;
-        public static Loai selectLoaiByTenLoai(string tenLoai) {
+
+        public static void InsertListThietBi(int[] maLoai, int[] soLuong) {
+            int n = maLoai.Length;
+            for (int i = 0; i < n; i++) {
+                for (int j = 0; j < soLuong[i]; j++) {
+                    InsertThietBi(maLoai[i]);
+                }
+            }
+        }
+
+        public static void InsertThietBi(int maLoai) {
+            using(Context context = new Context()) {
+                ThietBi thietBi = new ThietBi();
+                thietBi.MaThietBi = SelectLastMaThietBi() + 1;
+                thietBi.MaLoai = maLoai;
+                thietBi.NgayDuaVaoSuDung = null;
+                thietBi.TinhTrang = 0;
+                context.ThietBi.Add(thietBi);
+                context.SaveChanges();
+            }
+        }
+
+        public static int SelectLastMaThietBi() {
+            using(Context context = new Context()) {
+                return (from t in context.ThietBi
+                        orderby t.MaThietBi descending
+                        select t).FirstOrDefault().MaThietBi;
+            }
+        }
+        public static Loai SelectLoaiByTenLoai(string tenLoai) {
             using(Context context = new Context()) {
                 return (from l in context.Loai
                         where l.TenLoai == tenLoai
                         select l).First();
             }
         }
-        public static int getMaLoai(string tenLoai) {
+
+        public static int GetMaLoai(string tenLoai) {
             using(Context context = new Context()) {
                 return (from l in context.Loai
                         where l.TenLoai == tenLoai
@@ -35,7 +65,7 @@ namespace Model {
         public static List<ThietBi> ThongKeTheoLoai(string tenLoai, string date) {
             using(Context context = new Context()) {
                 List<ThietBi> result = new List<ThietBi>();
-                int maLoai = getMaLoai(tenLoai);
+                int maLoai = GetMaLoai(tenLoai);
                 DateTime time = Convert.ToDateTime(date);
                 List<ThietBi> listThietBi = (from l in context.ThietBi
                                              where l.MaLoai == maLoai
@@ -209,20 +239,20 @@ namespace Model {
         //}
 
 
-        public static List<TinhTrang> selectTinhTrang() {
+        public static List<TinhTrang> SelectTinhTrang() {
             using(var context = new Context()) {
                 return (from t in context.TinhTrang select t).ToList();
             }
         }
-        
-        public static List<DonVi> selectDonVi() {
+
+        public static List<DonVi> SelectDonVi() {
             using(var context = new Context()) {
                 return (from t in context.DonVi select t).ToList();
             }
-        }        
+        }
 
         //Loai
-        public static List<Loai> selectLoai() {
+        public static List<Loai> SelectLoai() {
             using(var context = new Context()) {
                 return (from l in context.Loai
                         select l).ToList<Loai>();

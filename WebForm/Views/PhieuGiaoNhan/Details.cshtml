@@ -1,0 +1,63 @@
+﻿@model Model.PhieuGiaoNhan
+
+@{
+    List<List<string>> chiTietLoai = ViewBag.ChiTietLoai as List<List<string>>;
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PhieuGiaoNhan</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NgayGiaoNhan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NgayGiaoNhan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DonVi.TenDonVi)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DonVi.TenDonVi)
+        </dd>
+
+    </dl>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Mã thiết bị</th>
+                <th>Tên thiết bị</th>
+                <th>Đơn giá</th>
+                <th>Thông số kỹ thuật</th>
+                <th>Năm sản xuất</th>
+                <th>Tình Trạng</th>
+            </tr>
+        </thead>
+        <tbody>
+
+            @{
+                foreach(List<string> listLoai in chiTietLoai) {
+                    <tr>
+                        @foreach(string chiTiet in listLoai) {
+                            <td>
+                                @chiTiet.ToString()
+                            </td>
+                        }
+                    </tr>
+                }
+
+            }
+        </tbody>
+    </table>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MaPhieuGiaoNhan }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
