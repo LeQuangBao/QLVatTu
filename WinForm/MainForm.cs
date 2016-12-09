@@ -37,10 +37,8 @@ namespace WinForm {
 
         private void btn_SuaLoai_Click(object sender, EventArgs e) {
             int donVi = tb_DonGia.Text == "Cái" ? 0 : 1;
-            
+
             Database.UpdateLoai(new Loai(Int32.Parse(lb_MaLoai.Text), tb_TenLoai.Text, Int32.Parse(tb_DonGia.Text), donVi, tb_ThongSoKyThuat.Text, tb_NamSanXuat.Text));
-            dgv_Loai.Rows.Clear();
-            loaiTableAdapter1.Fill(quanLyVatTuDataSet.Loai);
         }
 
         private void btn_XoaLoai_Click(object sender, EventArgs e) {
@@ -79,6 +77,20 @@ namespace WinForm {
 
                 dgv_ThongKe.Rows.Add(row);
             }
+        }
+
+        private void btn_LamMoi_Click(object sender, EventArgs e) {
+            int rowCount = dgv_Loai.Rows.Count;
+            for(int i = 0; i < rowCount; i++) {
+                dgv_Loai.Rows.RemoveAt(0);
+            }
+            List<Loai> listLoai = Database.SelectLoai();
+
+            foreach(Loai l in listLoai) {
+                string donVi = l.DonVi == 0 ? "Cái" : "Bộ";
+                dgv_Loai.Rows.Add(new string[] { l.MaLoai.ToString(), l.TenLoai, donVi, l.DonGia.ToString(), l.NamSanXuat, l.ThongSoKyThuat });
+            }
+
         }
     }
 }

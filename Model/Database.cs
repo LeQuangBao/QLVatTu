@@ -18,16 +18,32 @@ namespace Model {
         public const int MAY_CHIEU_SHAFT = 3;
         public const int DEN_LED = 4;
 
-        public static void InsertListThietBi(int[] maLoai, int[] soLuong) {
-            int n = maLoai.Length;
-            for (int i = 0; i < n; i++) {
-                for (int j = 0; j < soLuong[i]; j++) {
-                    InsertThietBi(maLoai[i]);
-                }
+        public static void InsertListThietBi(int maPhieuNhap, int[] maLoai, int[] soLuong) {
+            using(Context context = new Context()) {
+                int maLoaiLength = maLoai.Length;
+                int increase = 1;
+                for(int i = 0; i < maLoaiLength; i++) {
+                    PhieuNhap phieuNhap = (from p in context.PhieuNhap
+                                           where p.MaPhieuNhap == maPhieuNhap
+                                           select p).FirstOrDefault();
+                    for(int j = 0; j < soLuong[i]; j++) {
+                        //ThietBi t = InsertThietBi(maLoai[i]);
+
+                        ThietBi thietBi = new ThietBi();
+                        thietBi.MaThietBi = SelectLastMaThietBi() + increase++;
+                        thietBi.MaLoai = maLoai[i];
+                        thietBi.NgayDuaVaoSuDung = null;
+                        thietBi.TinhTrang = 0;
+
+                        phieuNhap.ThietBi.Add(thietBi);
+
+                    }
+                    context.SaveChanges();
+                }   
             }
         }
 
-        public static void InsertThietBi(int maLoai) {
+        public static ThietBi InsertThietBi(int maLoai) {
             using(Context context = new Context()) {
                 ThietBi thietBi = new ThietBi();
                 thietBi.MaThietBi = SelectLastMaThietBi() + 1;
@@ -36,6 +52,7 @@ namespace Model {
                 thietBi.TinhTrang = 0;
                 context.ThietBi.Add(thietBi);
                 context.SaveChanges();
+                return thietBi;
             }
         }
 
@@ -251,7 +268,10 @@ namespace Model {
             }
         }
 
-        //Loai
+        /// <summary>
+        /// Select all "loai" in database
+        /// </summary>
+        /// <returns></returns>
         public static List<Loai> SelectLoai() {
             using(var context = new Context()) {
                 return (from l in context.Loai

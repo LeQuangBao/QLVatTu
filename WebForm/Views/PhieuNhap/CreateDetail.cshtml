@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
-<script src="~/Scripts/ChiTietPhieuNhapScript.js"></script>
+<script src="~/Scripts/ChiTietPhieuNhap.js"></script>
 <h2>Tạo chi tiết hóa đơn</h2>
 <hr />
 <dl class="dl-horizontal">
@@ -52,30 +52,25 @@
         </td>
     </tr>
 </table>
-<form>
+@using(Html.BeginForm("CreateDetailHandler", "PhieuNhap")) {
+    <input type="hidden" name="maPhieuNhap" value="@Html.DisplayFor(model => model.MaPhieuNhap)"/>
     <table class="table" id="table_createChiTietPhieuNhap">
-        @using(Html.BeginForm("CreateDetailHandler", "PhieuNhap")) {
-            @Html.AntiForgeryToken();
-            <thead>
-                <tr>
-                    <th>
-                        Tên loại:
-                    </th>
-                    <th>
-                        Số lượng:
-                    </th>
-                    <th>
-                        Mã loại:
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>
-                        <input type="text"/>                        
-                    </td>
-                    
-            </tbody>
-        }
+        @Html.AntiForgeryToken();
+        <thead>
+            <tr>
+                <th>
+                    Loại:
+                </th>
+                <th>
+                    Số lượng:
+                </th>
+                <th>
+                    Mã loại:
+                </th>
+            </tr>
+        </thead>
+        <tbody></tbody>
     </table>
-</form>
+    <input type="submit" value="Hoàn tất" class="btn btn-default" />
+}
+

@@ -66,8 +66,8 @@ namespace WebForm.Controllers {
             return View(phieuNhap);
         }
 
-        public ActionResult CreateDetailHandler(int[] maLoai, int[] soLuong) {
-            Model.Database.InsertListThietBi(maLoai, soLuong);
+        public ActionResult CreateDetailHandler(int maPhieuNhap, int[] maLoai, int[] soLuong) {
+            Model.Database.InsertListThietBi(maPhieuNhap, maLoai, soLuong);
             return RedirectToAction("Index");
         }
 
