@@ -27,6 +27,7 @@ namespace WinForm {
                 cb_ThongKe_ChonLoai.Items.Add(l.TenLoai);
             }
             cb_ThongKe_ChonLoai.SelectedIndex = 0;
+            refresh();
 
             ////Testing ground
             //List<ThietBi> list = new List<ThietBi>();
@@ -36,13 +37,17 @@ namespace WinForm {
         }
 
         private void btn_SuaLoai_Click(object sender, EventArgs e) {
+            if (lb_MaLoai.Text.Equals("---")) {
+                return;
+            }
             int donVi = tb_DonGia.Text == "Cái" ? 0 : 1;
-
-            Database.UpdateLoai(new Loai(Int32.Parse(lb_MaLoai.Text), tb_TenLoai.Text, Int32.Parse(tb_DonGia.Text), donVi, tb_ThongSoKyThuat.Text, tb_NamSanXuat.Text));
+            Database.UpdateLoai(new Loai(int.Parse(lb_MaLoai.Text), tb_TenLoai.Text, int.Parse(tb_DonGia.Text), donVi, tb_ThongSoKyThuat.Text, tb_NamSanXuat.Text));
+            refresh();
         }
 
         private void btn_XoaLoai_Click(object sender, EventArgs e) {
             Database.DeleteLoai(Int32.Parse(lb_MaLoai.Text));
+            refresh();
         }
 
         private void btn_ThemLoai_Click(object sender, EventArgs e) {
@@ -56,8 +61,8 @@ namespace WinForm {
             tb_TenLoai.Text = dgv_Loai.Rows[row].Cells[1].Value.ToString();
             tb_DonVi.Text = dgv_Loai.Rows[row].Cells[2].Value.ToString();
             tb_DonGia.Text = dgv_Loai.Rows[row].Cells[3].Value.ToString();
-            tb_ThongSoKyThuat.Text = dgv_Loai.Rows[row].Cells[4].Value.ToString();
-            tb_NamSanXuat.Text = dgv_Loai.Rows[row].Cells[5].Value.ToString();
+            tb_NamSanXuat.Text = dgv_Loai.Rows[row].Cells[4].Value.ToString();
+            tb_ThongSoKyThuat.Text = dgv_Loai.Rows[row].Cells[5].Value.ToString();
             return;
         }
 
@@ -80,17 +85,19 @@ namespace WinForm {
         }
 
         private void btn_LamMoi_Click(object sender, EventArgs e) {
+            refresh();
+        }
+
+        private void refresh() {
             int rowCount = dgv_Loai.Rows.Count;
             for(int i = 0; i < rowCount; i++) {
                 dgv_Loai.Rows.RemoveAt(0);
             }
             List<Loai> listLoai = Database.SelectLoai();
-
             foreach(Loai l in listLoai) {
                 string donVi = l.DonVi == 0 ? "Cái" : "Bộ";
                 dgv_Loai.Rows.Add(new string[] { l.MaLoai.ToString(), l.TenLoai, donVi, l.DonGia.ToString(), l.NamSanXuat, l.ThongSoKyThuat });
             }
-
         }
     }
 }
