@@ -62,8 +62,7 @@ namespace WebForm.Controllers {
 
         public ActionResult CreateDetail(int? id) {
             PhieuNhap phieuNhap = db.PhieuNhap.Find(id);
-            ViewBag.phieuNhap = phieuNhap;
-            List<Loai> listLoai = (from l in db.Loai select l).ToList();
+            ViewBag.listLoai = (from l in db.Loai select l).ToList();
             return View(phieuNhap);
         }
 

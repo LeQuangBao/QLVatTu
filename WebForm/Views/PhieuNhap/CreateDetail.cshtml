@@ -1,12 +1,12 @@
 ﻿@model Model.PhieuNhap
-
 @{
     ViewBag.Title = "CreateDetail";
     List<Model.Loai> listLoai = ViewBag.listLoai as List<Model.Loai>;
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
 
-<h2>CreateDetail</h2>
+}
+<script src="~/Scripts/ChiTietPhieuNhapScript.js"></script>
+<h2>Tạo chi tiết hóa đơn</h2>
 <hr />
 <dl class="dl-horizontal">
     <dt>
@@ -26,27 +26,56 @@
     </dd>
 </dl>
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                Loại
-            </th>
-            <th>
-                Số lượng
-            </th>
-        </tr>
-    </thead>
-    @using(Html.BeginForm("CreateDetailHandler", "PhieuNhap")) {
-        @Html.AntiForgeryToken();
-        <tr>
-            <td>
-                <select class="form-control" name="maLoai[0]" id="">
-
-                </select>
-            </td>
-            <td>
-                <input type="text" class="form-control" name="soLuong[0]" />
-            </td>
-        </tr>
-    }
+    <tr>
+        <td>
+            Loại:
+        </td>
+        <td>
+            <select class="form-control" id="listMaLoai">
+                @foreach(Model.Loai l in listLoai) {
+                    <option value="@l.MaLoai">@l.TenLoai</option>
+                }
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Số lượng:
+        </td>
+        <td>
+            <input type="text" class="form-control" id="txtSoLuong" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button type="button" class="btn btn-success btn-md" id="btnAdd">+</button>
+        </td>
+    </tr>
 </table>
+<form>
+    <table class="table" id="table_createChiTietPhieuNhap">
+        @using(Html.BeginForm("CreateDetailHandler", "PhieuNhap")) {
+            @Html.AntiForgeryToken();
+            <thead>
+                <tr>
+                    <th>
+                        Tên loại:
+                    </th>
+                    <th>
+                        Số lượng:
+                    </th>
+                    <th>
+                        Mã loại:
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <input type="text"/>                        
+                    </td>
+                    
+            </tbody>
+        }
+    </table>
+</form>

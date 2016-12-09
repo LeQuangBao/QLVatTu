@@ -1,0 +1,39 @@
+﻿@model Model.ChiTietPhieuGiaoNhan
+
+@{
+    ViewBag.Title = "CreateDetail";
+    List<Model.ThietBi> listThietBi = ViewBag.listLoai as List<Model.ThietBi>;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Tạo chi tiết phiếu giao nhận</h2>
+<script src="~/Scripts/ChiTietPhieuGiaoNhanScript.js"></script>
+
+<table class="table">
+    <tr>
+        <td>
+            Mã thiết bị:
+        </td>
+        <td>
+            <select class="form-control" id="maThietBi">
+                @foreach(Model.ThietBi l in listThietBi) {
+                    <option value="@l.MaThietBi">@l.MaThietBi</option>
+                }
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Tình trạng:
+        </td>
+        <td>
+            <input type="text" class="form-control" id="tinhTrang" />
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <button type="button" class="btn btn-success btn-md" id="btnAdd">+</button>
+        </td>
+    </tr>
+</table>
+
