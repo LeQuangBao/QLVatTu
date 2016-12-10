@@ -37,7 +37,7 @@ namespace WinForm {
         }
 
         private void btn_SuaLoai_Click(object sender, EventArgs e) {
-            if (lb_MaLoai.Text.Equals("---")) {
+            if(lb_MaLoai.Text.Equals("---")) {
                 return;
             }
             int donVi = tb_DonGia.Text == "Cái" ? 0 : 1;
@@ -72,6 +72,10 @@ namespace WinForm {
             List<TinhTrang> listTinhTrang = Database.SelectTinhTrang();
             Loai loai = Database.SelectLoaiByTenLoai(cb_ThongKe_ChonLoai.Text);
             dgv_ThongKe.Rows.Clear();
+            int soLuongConDungDuoc = 0;
+            int soLuongDangDung = 0;
+            int soLuongDaHu = 0;
+            int soLuongThanhLy = 0;
             //mã thiết bị, loại, đơn giá, đơn vị, thông số kỹ thuật, năm sản xuất
             foreach(ThietBi tb in listThietBi) {
                 string tinhTrang = (from l in listTinhTrang
@@ -79,9 +83,26 @@ namespace WinForm {
                                     select l.TenTinhTrang).FirstOrDefault().ToString();
                 string donVi = loai.DonVi == 0 ? "Cái" : "Bộ";
                 string[] row = new string[] { tb.MaThietBi.ToString(), loai.TenLoai, loai.DonGia.ToString(), donVi, loai.ThongSoKyThuat, loai.NamSanXuat, tb.NgayDuaVaoSuDung.ToString(), tinhTrang };
-
                 dgv_ThongKe.Rows.Add(row);
+                switch(tb.TinhTrang) {
+                    case 0:
+                        soLuongConDungDuoc++;
+                        break;
+                    case 1:
+                        soLuongDangDung++;
+                        break;
+                    case 2:
+                        soLuongDaHu++;
+                        break;
+                    case 3:
+                        soLuongThanhLy++;
+                        break;
+                }
             }
+            lbl_SoLuongConDungDuoc.Text = soLuongConDungDuoc.ToString();
+            lbl_SoLuongDangDung.Text = soLuongDangDung.ToString();
+            lbl_SoLuongDaHu.Text = soLuongDaHu.ToString();
+            lbl_SoLuongThanhLy.Text = soLuongThanhLy.ToString();
         }
 
         private void btn_LamMoi_Click(object sender, EventArgs e) {
