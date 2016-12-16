@@ -74,6 +74,18 @@ namespace WebForm.Controllers
             return View(phieuGiaoNhan);
         }
 
+        public ActionResult CreateDetail(int id) {
+            PhieuGiaoNhan pgn = Model.Database.SelectPhieuGiaoNhanByMa(id);
+            DonVi donVi = Model.Database.SelectDonViByMa(pgn.MaDonVi);
+            ViewBag.tenDonVi = donVi.TenDonVi;
+            return View(pgn);
+        }
+        
+        public ActionResult SelectLoai() {            
+            var listLoai = Model.Database.SelectLoai();
+            return Json(listLoai, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: PhieuGiaoNhan/Edit/5
         public ActionResult Edit(int? id)
         {

@@ -18,6 +18,18 @@ namespace Model {
         public const int MAY_CHIEU_SHAFT = 3;
         public const int DEN_LED = 4;
 
+        public static DonVi SelectDonViByMa(int maDonVi) {
+            using(Context context = new Model.Context()) {
+                return context.DonVi.Find(maDonVi);
+            }
+        }
+
+        public static PhieuGiaoNhan SelectPhieuGiaoNhanByMa(int maPhieuGiaoNhan) {
+            using(Context context = new Model.Context()) {
+                return context.PhieuGiaoNhan.Find(maPhieuGiaoNhan);
+            }
+        }
+
         public static void InsertListThietBi(int maPhieuNhap, int[] maLoai, int[] soLuong) {
             using(Context context = new Context()) {
                 int maLoaiLength = maLoai.Length;
@@ -84,9 +96,14 @@ namespace Model {
                 List<ThietBi> result = new List<ThietBi>();
                 int maLoai = GetMaLoai(tenLoai);
                 DateTime time = Convert.ToDateTime(date);
-                List<ThietBi> listThietBi = (from l in context.ThietBi
-                                             where l.MaLoai == maLoai
-                                             select l).ToList();
+                List<ThietBi> listThietBi = new List<ThietBi>();
+                List<PhieuNhap> listPhieuNhap = (from l in context.PhieuNhap
+                                                 where l.NgayNhap <= time
+                                                 select l).ToList();
+                foreach(PhieuNhap phieuNhap in listPhieuNhap) {
+                    listThietBi.AddRange(phieuNhap.ThietBi);
+                }
+
                 foreach(ThietBi tb in listThietBi) {
                     ThietBi temp = new ThietBi();
                     temp.MaThietBi = tb.MaThietBi;

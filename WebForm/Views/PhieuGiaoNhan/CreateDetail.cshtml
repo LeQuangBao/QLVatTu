@@ -1,24 +1,39 @@
-﻿@model Model.ChiTietPhieuGiaoNhan
+﻿@model Model.PhieuGiaoNhan
 
 @{
-    ViewBag.Title = "CreateDetail";
+    ViewBag.Title = "CreateDetail";    
     List<Model.ThietBi> listThietBi = ViewBag.listLoai as List<Model.ThietBi>;
+    string tenDonVi = ViewBag.tenDonVi;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Tạo chi tiết phiếu giao nhận</h2>
 <script src="~/Scripts/ChiTietPhieuGiaoNhanScript.js"></script>
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.NgayGiaoNhan)
+    </dt>
 
+    <dd>
+        @Html.DisplayFor(model => model.NgayGiaoNhan)
+    </dd>
+    <dt>
+        Đơn Vị:
+    </dt>
+
+    <dd>
+        @tenDonVi
+    </dd>
+
+</dl>
 <table class="table">
     <tr>
         <td>
             Mã thiết bị:
         </td>
         <td>
-            <select class="form-control" id="maThietBi">
-                @foreach(Model.ThietBi l in listThietBi) {
-                    <option value="@l.MaThietBi">@l.MaThietBi</option>
-                }
+            <select class="form-control" id="dropDown_selectLoai">
+                
             </select>
         </td>
     </tr>

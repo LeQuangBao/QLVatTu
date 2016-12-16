@@ -293,7 +293,7 @@ namespace WinForm {
             
             private global::System.Data.DataColumn columnNgayDuaVaoSuDung;
             
-            private global::System.Data.DataColumn columnTinhTrang;
+            private global::System.Data.DataColumn columnTenTinhTrang;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
@@ -386,9 +386,9 @@ namespace WinForm {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn TinhTrangColumn {
+            public global::System.Data.DataColumn TenTinhTrangColumn {
                 get {
-                    return this.columnTinhTrang;
+                    return this.columnTenTinhTrang;
                 }
             }
             
@@ -429,7 +429,7 @@ namespace WinForm {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public LoaiRow AddLoaiRow(string TenLoai, int DonGia, int DonVi, string ThongSoKyThuat, string NamSanXuat, int MaThietBi, System.DateTime NgayDuaVaoSuDung, int TinhTrang) {
+            public LoaiRow AddLoaiRow(string TenLoai, int DonGia, int DonVi, string ThongSoKyThuat, string NamSanXuat, int MaThietBi, System.DateTime NgayDuaVaoSuDung, string TenTinhTrang) {
                 LoaiRow rowLoaiRow = ((LoaiRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         TenLoai,
@@ -439,7 +439,7 @@ namespace WinForm {
                         NamSanXuat,
                         MaThietBi,
                         NgayDuaVaoSuDung,
-                        TinhTrang};
+                        TenTinhTrang};
                 rowLoaiRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowLoaiRow);
                 return rowLoaiRow;
@@ -476,7 +476,7 @@ namespace WinForm {
                 this.columnNamSanXuat = base.Columns["NamSanXuat"];
                 this.columnMaThietBi = base.Columns["MaThietBi"];
                 this.columnNgayDuaVaoSuDung = base.Columns["NgayDuaVaoSuDung"];
-                this.columnTinhTrang = base.Columns["TinhTrang"];
+                this.columnTenTinhTrang = base.Columns["TenTinhTrang"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -496,8 +496,8 @@ namespace WinForm {
                 base.Columns.Add(this.columnMaThietBi);
                 this.columnNgayDuaVaoSuDung = new global::System.Data.DataColumn("NgayDuaVaoSuDung", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnNgayDuaVaoSuDung);
-                this.columnTinhTrang = new global::System.Data.DataColumn("TinhTrang", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTinhTrang);
+                this.columnTenTinhTrang = new global::System.Data.DataColumn("TenTinhTrang", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTenTinhTrang);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnMaThietBi}, true));
                 this.columnTenLoai.MaxLength = 50;
@@ -506,7 +506,7 @@ namespace WinForm {
                 this.columnNamSanXuat.MaxLength = 50;
                 this.columnMaThietBi.AllowDBNull = false;
                 this.columnMaThietBi.Unique = true;
-                this.columnTinhTrang.AllowDBNull = false;
+                this.columnTenTinhTrang.MaxLength = 50;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -751,12 +751,17 @@ namespace WinForm {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public int TinhTrang {
+            public string TenTinhTrang {
                 get {
-                    return ((int)(this[this.tableLoai.TinhTrangColumn]));
+                    try {
+                        return ((string)(this[this.tableLoai.TenTinhTrangColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'TenTinhTrang\' in table \'Loai\' is DBNull.", e);
+                    }
                 }
                 set {
-                    this[this.tableLoai.TinhTrangColumn] = value;
+                    this[this.tableLoai.TenTinhTrangColumn] = value;
                 }
             }
             
@@ -818,6 +823,18 @@ namespace WinForm {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetNgayDuaVaoSuDungNull() {
                 this[this.tableLoai.NgayDuaVaoSuDungColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsTenTinhTrangNull() {
+                return this.IsNull(this.tableLoai.TenTinhTrangColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetTenTinhTrangNull() {
+                this[this.tableLoai.TenTinhTrangColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -987,7 +1004,7 @@ namespace WinForm.ThietBiDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("NamSanXuat", "NamSanXuat");
             tableMapping.ColumnMappings.Add("MaThietBi", "MaThietBi");
             tableMapping.ColumnMappings.Add("NgayDuaVaoSuDung", "NgayDuaVaoSuDung");
-            tableMapping.ColumnMappings.Add("TinhTrang", "TinhTrang");
+            tableMapping.ColumnMappings.Add("TenTinhTrang", "TenTinhTrang");
             this._adapter.TableMappings.Add(tableMapping);
         }
         
@@ -1004,9 +1021,10 @@ namespace WinForm.ThietBiDataSetTableAdapters {
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT                      Loai.TenLoai, Loai.DonGia, Loai.DonVi, Loai.ThongSoKyThuat, Loai.NamSanXuat, ThietBi.MaThietBi, ThietBi.NgayDuaVaoSuDung, ThietBi.TinhTrang
+            this._commandCollection[0].CommandText = @"SELECT                      Loai.TenLoai, Loai.DonGia, Loai.DonVi, Loai.ThongSoKyThuat, Loai.NamSanXuat, ThietBi.MaThietBi, ThietBi.NgayDuaVaoSuDung, TinhTrang.TenTinhTrang
 FROM                         Loai INNER JOIN
-                                      ThietBi ON Loai.MaLoai = ThietBi.MaLoai";
+                                      ThietBi ON Loai.MaLoai = ThietBi.MaLoai INNER JOIN
+                                      TinhTrang ON ThietBi.TinhTrang = TinhTrang.MaTinhTrang";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         

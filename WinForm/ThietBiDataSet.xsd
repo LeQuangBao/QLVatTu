@@ -9,12 +9,13 @@
         <Tables>
           <TableAdapter BaseClass="System.ComponentModel.Component" DataAccessorModifier="AutoLayout, AnsiClass, Class, Public" DataAccessorName="LoaiTableAdapter" GeneratorDataComponentClassName="LoaiTableAdapter" Name="Loai" UserDataComponentName="LoaiTableAdapter">
             <MainSource>
-              <DbSource ConnectionRef="QuanLyVatTuConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetData" UserSourceName="Fill">
+              <DbSource ConnectionRef="QuanLyVatTuConnectionString (Settings)" DbObjectType="Unknown" FillMethodModifier="Public" FillMethodName="Fill" GenerateMethods="Both" GenerateShortCommands="false" GeneratorGetMethodName="GetData" GeneratorSourceName="Fill" GetMethodModifier="Public" GetMethodName="GetData" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="false" UserGetMethodName="GetData" UserSourceName="Fill">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">
-                    <CommandText>SELECT                      Loai.TenLoai, Loai.DonGia, Loai.DonVi, Loai.ThongSoKyThuat, Loai.NamSanXuat, ThietBi.MaThietBi, ThietBi.NgayDuaVaoSuDung, ThietBi.TinhTrang
+                    <CommandText>SELECT                      Loai.TenLoai, Loai.DonGia, Loai.DonVi, Loai.ThongSoKyThuat, Loai.NamSanXuat, ThietBi.MaThietBi, ThietBi.NgayDuaVaoSuDung, TinhTrang.TenTinhTrang
 FROM                         Loai INNER JOIN
-                                      ThietBi ON Loai.MaLoai = ThietBi.MaLoai</CommandText>
+                                      ThietBi ON Loai.MaLoai = ThietBi.MaLoai INNER JOIN
+                                      TinhTrang ON ThietBi.TinhTrang = TinhTrang.MaTinhTrang</CommandText>
                     <Parameters />
                   </DbCommand>
                 </SelectCommand>
@@ -28,7 +29,7 @@ FROM                         Loai INNER JOIN
               <Mapping SourceColumn="NamSanXuat" DataSetColumn="NamSanXuat" />
               <Mapping SourceColumn="MaThietBi" DataSetColumn="MaThietBi" />
               <Mapping SourceColumn="NgayDuaVaoSuDung" DataSetColumn="NgayDuaVaoSuDung" />
-              <Mapping SourceColumn="TinhTrang" DataSetColumn="TinhTrang" />
+              <Mapping SourceColumn="TenTinhTrang" DataSetColumn="TenTinhTrang" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -40,7 +41,7 @@ FROM                         Loai INNER JOIN
   <xs:element name="ThietBiDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="True" msprop:Generator_DataSetName="ThietBiDataSet" msprop:Generator_UserDSName="ThietBiDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="Loai" msprop:Generator_TableClassName="LoaiDataTable" msprop:Generator_TableVarName="tableLoai" msprop:Generator_RowChangedName="LoaiRowChanged" msprop:Generator_TablePropName="Loai" msprop:Generator_RowDeletingName="LoaiRowDeleting" msprop:Generator_RowChangingName="LoaiRowChanging" msprop:Generator_RowEvHandlerName="LoaiRowChangeEventHandler" msprop:Generator_RowDeletedName="LoaiRowDeleted" msprop:Generator_RowClassName="LoaiRow" msprop:Generator_UserTableName="Loai" msprop:Generator_RowEvArgName="LoaiRowChangeEvent">
+        <xs:element name="Loai" msprop:Generator_TableClassName="LoaiDataTable" msprop:Generator_TableVarName="tableLoai" msprop:Generator_TablePropName="Loai" msprop:Generator_RowDeletingName="LoaiRowDeleting" msprop:Generator_RowChangingName="LoaiRowChanging" msprop:Generator_RowEvHandlerName="LoaiRowChangeEventHandler" msprop:Generator_RowDeletedName="LoaiRowDeleted" msprop:Generator_UserTableName="Loai" msprop:Generator_RowChangedName="LoaiRowChanged" msprop:Generator_RowEvArgName="LoaiRowChangeEvent" msprop:Generator_RowClassName="LoaiRow">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="TenLoai" msprop:Generator_ColumnVarNameInTable="columnTenLoai" msprop:Generator_ColumnPropNameInRow="TenLoai" msprop:Generator_ColumnPropNameInTable="TenLoaiColumn" msprop:Generator_UserColumnName="TenLoai" minOccurs="0">
@@ -68,7 +69,13 @@ FROM                         Loai INNER JOIN
               </xs:element>
               <xs:element name="MaThietBi" msprop:Generator_ColumnVarNameInTable="columnMaThietBi" msprop:Generator_ColumnPropNameInRow="MaThietBi" msprop:Generator_ColumnPropNameInTable="MaThietBiColumn" msprop:Generator_UserColumnName="MaThietBi" type="xs:int" />
               <xs:element name="NgayDuaVaoSuDung" msprop:Generator_ColumnVarNameInTable="columnNgayDuaVaoSuDung" msprop:Generator_ColumnPropNameInRow="NgayDuaVaoSuDung" msprop:Generator_ColumnPropNameInTable="NgayDuaVaoSuDungColumn" msprop:Generator_UserColumnName="NgayDuaVaoSuDung" type="xs:dateTime" minOccurs="0" />
-              <xs:element name="TinhTrang" msprop:Generator_ColumnVarNameInTable="columnTinhTrang" msprop:Generator_ColumnPropNameInRow="TinhTrang" msprop:Generator_ColumnPropNameInTable="TinhTrangColumn" msprop:Generator_UserColumnName="TinhTrang" type="xs:int" />
+              <xs:element name="TenTinhTrang" msprop:Generator_ColumnVarNameInTable="columnTenTinhTrang" msprop:Generator_ColumnPropNameInRow="TenTinhTrang" msprop:Generator_ColumnPropNameInTable="TenTinhTrangColumn" msprop:Generator_UserColumnName="TenTinhTrang" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="50" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>

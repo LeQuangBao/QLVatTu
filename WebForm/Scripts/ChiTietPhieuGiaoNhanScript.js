@@ -1,8 +1,17 @@
 ﻿$(document).ready(function () {
-    $("#btnAdd").click(function () {
-
-        //$("#table_createChiTietPhieuNhap").find("tr:last-child").not("thead tr").append('<tr> <td> <select class="form-control col-md-4" name="maLoai[0]" id=""> @foreach(Model.Loai l in listLoai) { <option value="@l.MaLoai">@l.TenLoai</option> } </select> </td> <td> <input type="text" class="form-control" name="soLuong[0]" /> </td> </tr>)');
-        $("#table_createChiTietPhieuNhap").append('<tr> <td> <select class="form-control col-md-4" name="maLoai[0]" id=""> @foreach(Model.Loai l in listLoai) { <option value="@l.MaLoai">@l.TenLoai</option> } </select> </td> <td> <input type="text" class="form-control" name="soLuong[0]" /> </td> </tr>)');
+    $.ajax({
+        url: '/PhieuGiaoNhan/SelectLoai/',
+        type: 'Get',
+        dataType: 'json',
+        success: function (listLoai) {
+            var rows = '';
+            alert(listLoai);
+            $.each(listLoai, function (i, item) {
+                rows += '<option>' + item.tenLoai + '</option>';
+                $("#dropDown_selectLoai").append(rows);
+            });
+            alert(rows);
+        }
     });
 });
 /*
