@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace Model {
     public class Database {
@@ -17,6 +18,27 @@ namespace Model {
         public const int ONG_NGHIEM = 2;
         public const int MAY_CHIEU_SHAFT = 3;
         public const int DEN_LED = 4;
+
+        public static List<ChiTietPhieuGiaoNhan> SelectChiTietPhieuGiaoNhan(int maPhieuGiaoNhan) {
+            using(Context context = new Model.Context()) {
+                //return context.ChiTietPhieuGiaoNhan.Where(ct => ct.MaPhieuGiaoNhan == maPhieuGiaoNhan).ToList();
+                return (from l in context.ChiTietPhieuGiaoNhan
+                        where l.MaPhieuGiaoNhan == maPhieuGiaoNhan
+                        select l).ToList();
+            }
+        }
+
+        public static List<ThietBi> SelectThietBiByLoai(int maLoai) {
+            using(Context context = new Model.Context()) {
+                return context.ThietBi.Where(tb => tb.MaLoai == maLoai).ToList();
+            }
+        }
+
+        public static ThietBi SelectThietBiByMa(int maThietBi) {
+            using(Context context = new Model.Context()) {
+                return context.ThietBi.Find(maThietBi);
+            }
+        }
 
         public static DonVi SelectDonViByMa(int maDonVi) {
             using(Context context = new Model.Context()) {
@@ -51,7 +73,7 @@ namespace Model {
 
                     }
                     context.SaveChanges();
-                }   
+                }
             }
         }
 
@@ -82,6 +104,19 @@ namespace Model {
                         select l).First();
             }
         }
+
+        public static void InsertChiTietPhieuGiaoNhan(int maPhieuGiaoNhan, int[] maThietBi, int[] tinhTrang) {
+            using(Context context = new Context()) {
+                for(int i = 0; i < maThietBi.Length; i++) {
+                    ChiTietPhieuGiaoNhan ct = new ChiTietPhieuGiaoNhan(maPhieuGiaoNhan, maThietBi[i], tinhTrang[i]);
+                    context.ChiTietPhieuGiaoNhan.Add(ct);
+                    ThietBi tb = context.ThietBi.Find(maThietBi[i]);
+                    tb.TinhTrang = tinhTrang[i];
+                }
+                context.SaveChanges();
+            }
+        }
+
 
         public static int GetMaLoai(string tenLoai) {
             using(Context context = new Context()) {
@@ -291,8 +326,8 @@ namespace Model {
         /// <returns></returns>
         public static List<Loai> SelectLoai() {
             using(var context = new Context()) {
-                return (from l in context.Loai
-                        select l).ToList<Loai>();
+                return (from l in context.Loai.Include(l => l.ThietBi)
+                        select l).Include(l => l.DonViTinh).ToList();
             }
         }
 

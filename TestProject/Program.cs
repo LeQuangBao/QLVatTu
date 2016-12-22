@@ -8,7 +8,7 @@ using Model;
 namespace TestProject {
     class Program {
         static void Main(string[] args) {
-            using (Context context = new Context()) {
+            using(Context context = new Context()) {
                 // DateTime time = new DateTime(2016, 11, 15);
 
                 // select without condition
@@ -16,11 +16,19 @@ namespace TestProject {
                 //            select l;
 
                 // select with condition and inner join
-                // var thietBi = from tb in context.ThietBi
-                //               join l in context.Loai on tb.MaLoai equals l.MaLoai
-                //               where l.MaLoai == 0
-                //               select tb;
+                //var thietBi = from tb in context.ThietBi
+                //              join l in context.Loai on tb.MaLoai equals l.MaLoai
+                //              where l.MaLoai == 0
+                //              select tb;
 
+                var chiTiet = (from ct in context.ChiTietPhieuGiaoNhan
+                               where ct.MaPhieuGiaoNhan == 0
+                               select ct).ToList();
+                //ICollection<ChiTietPhieuGiaoNhan> chiTiet = context.ChiTietPhieuGiaoNhan.ToList();
+
+                foreach(ChiTietPhieuGiaoNhan ct in chiTiet) {
+                    Console.WriteLine(ct.MaThietBi);
+                }
                 // select pivot table
                 // var phieuGiaoNhan = from pgn in context.PhieuGiaoNhan
                 //                     where pgn.MaLoaiGiaoNhan == "1"
@@ -69,16 +77,16 @@ namespace TestProject {
                 // }
                 // context.SaveChanges();
 
-                PhieuNhap phieuNhap = (from p in context.PhieuNhap
-                                       where p.MaPhieuNhap == 4
-                                       select p).FirstOrDefault();
-                ThietBi thietBi = new ThietBi();
-                thietBi.MaThietBi = 37;
-                foreach(ThietBi tb in phieuNhap.ThietBi) {
-                    Console.WriteLine(tb.MaThietBi);
-                }
-                phieuNhap.ThietBi.Add(thietBi);
-                context.SaveChanges();
+                //PhieuNhap phieuNhap = (from p in context.PhieuNhap
+                //                       where p.MaPhieuNhap == 4
+                //                       select p).FirstOrDefault();
+                //ThietBi thietBi = new ThietBi();
+                //thietBi.MaThietBi = 37;
+                //foreach(ThietBi tb in phieuNhap.ThietBi) {
+                //    Console.WriteLine(tb.MaThietBi);
+                //}
+                //phieuNhap.ThietBi.Add(thietBi);
+                //context.SaveChanges();
                 return;
             }
         }

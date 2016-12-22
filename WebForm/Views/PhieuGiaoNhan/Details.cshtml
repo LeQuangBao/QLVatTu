@@ -1,7 +1,7 @@
 ﻿@model Model.PhieuGiaoNhan
 
 @{
-    List<List<string>> chiTietLoai = ViewBag.ChiTietLoai as List<List<string>>;
+    List<List<string>> chiTietPhieuGiaoNhan = ViewBag.ChiTietLoai as List<List<string>>;
     ViewBag.Title = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -41,18 +41,16 @@
             </tr>
         </thead>
         <tbody>
-
             @{
-                foreach(List<string> listLoai in chiTietLoai) {
+                foreach(List<string> listChiTiet in chiTietPhieuGiaoNhan) {
                     <tr>
-                        @foreach(string chiTiet in listLoai) {
+                        @foreach(string chiTiet in listChiTiet) {
                             <td>
                                 @chiTiet.ToString()
                             </td>
                         }
                     </tr>
                 }
-
             }
         </tbody>
     </table>

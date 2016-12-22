@@ -1,14 +1,112 @@
 ﻿@model Model.PhieuGiaoNhan
 
 @{
-    ViewBag.Title = "CreateDetail";    
+    ViewBag.Title = "CreateDetail";
     List<Model.ThietBi> listThietBi = ViewBag.listLoai as List<Model.ThietBi>;
     string tenDonVi = ViewBag.tenDonVi;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Tạo chi tiết phiếu giao nhận</h2>
-<script src="~/Scripts/ChiTietPhieuGiaoNhanScript.js"></script>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            url: '/PhieuGiaoNhan/SelectLoai',
+            type: 'Get',
+            dataType: 'json',
+            success: function (listLoai) {
+                var options = '';
+                $.each(listLoai, function (i, item) {
+                    options += '<option value=' + item.MaLoai + '>' + item.TenLoai + '</option>';
+                });
+                $("#dropDown_selectLoai").append(options);
+                console.log(listLoai);
+            }
+        });
+        $.ajax({
+            url: '/PhieuGiaoNhan/SelectThietBi/0',
+            type: 'Get',
+            dataType: 'json',
+            success: function (listThietBi) {
+                var options = '';
+                var tinhTrang = '';
+                $.each(listThietBi, function (i, item) {
+                    switch (item.TinhTrang) {
+                        case 0:
+                            tinhTrang = 'Còn dùng được';
+                            break;
+                        case 1:
+                            tinhTrang = 'đang dùng';
+                            break;
+                        case 2:
+                            tinhTrang = 'Đã hư';
+                            break;
+                        case 3:
+                            tinhTrang = 'Đã thanh lý';
+                            break;
+                        default:
+                            break;
+                    }
+                    options += '<option value=' + item.MaThietBi + '>' + item.MaThietBi +
+                        ' - ' + tinhTrang + '</option>';
+                });
+                $("#dropDown_selectThietBi").append(options);
+            }
+        });
+        $("#dropDown_selectLoai").change(function () {
+            var maLoai = $("#dropDown_selectLoai").val();
+            $("#dropDown_selectThietBi option").remove();
+            $.ajax({
+                url: '/PhieuGiaoNhan/SelectThietBi/' + maLoai,
+                type: 'Get',
+                dataType: 'json',
+                success: function (listThietBi) {
+                    var options = '';
+                    $.each(listThietBi, function (i, item) {
+                        switch (item.TinhTrang) {
+                            case 0:
+                                tinhTrang = 'Còn dùng được';
+                                break;
+                            case 1:
+                                tinhTrang = 'đang dùng';
+                                break;
+                            case 2:
+                                tinhTrang = 'Đã hư';
+                                break;
+                            case 3:
+                                tinhTrang = 'Đã thanh lý';
+                                break;
+                            default:
+                                break;
+                        }
+                        options += '<option value=' + item.MaThietBi + '>' + item.MaThietBi +
+                            ' - ' + tinhTrang + '</option>';
+                    });
+                    $("#dropDown_selectThietBi").append(options);
+                }
+            });
+        });
+        $("#btnAdd").click(function () {
+            var maThietBi = $("#dropDown_selectThietBi").find("option:selected").val();
+            var loai = $("#dropDown_selectLoai").find("option:selected").text();
+            var tinhTrangTruoc = $("#dropDown_selectThietBi").find("option:selected").text();
+            tinhTrangTruoc = tinhTrangTruoc.split(" - ")[1];
+            var tinhTrangSau = $("#dropDown_selectTinhTrangSau").find("option:selected").text();
+            var maTinhTrangSau = $("#dropDown_selectTinhTrangSau").find("option:selected").val();
+            var soDong = $("#table_createChiTietPhieuGiaoNhan > tbody > tr").length;
+            var row = '';
+            row += '<tr>';
+            row += '<input type="hidden" name=maThietBi[' + soDong + '] value=' + maThietBi + '>';
+            row += '<input type="hidden" name=tinhTrang[' + soDong + '] value=' + maTinhTrangSau + '>';
+            row += '<td>' + maThietBi + '</td>';
+            row += '<td>' + loai + '</td>';
+            row += '<td>' + tinhTrangTruoc + '</td>';
+            row += '<td>' + tinhTrangSau + '</td>';
+            row += '</tr>';
+            $("#table_createChiTietPhieuGiaoNhan").append(row);
+        });
+    });
+</script>
 <dl class="dl-horizontal">
     <dt>
         @Html.DisplayNameFor(model => model.NgayGiaoNhan)
@@ -26,29 +124,83 @@
     </dd>
 
 </dl>
-<table class="table">
-    <tr>
-        <td>
-            Mã thiết bị:
-        </td>
-        <td>
-            <select class="form-control" id="dropDown_selectLoai">
-                
-            </select>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            Tình trạng:
-        </td>
-        <td>
-            <input type="text" class="form-control" id="tinhTrang" />
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <button type="button" class="btn btn-success btn-md" id="btnAdd">+</button>
-        </td>
-    </tr>
-</table>
+<br />
+<div class="container">
+    <div class="row col-md-6">
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>
+                        Thêm chi tiết
+                    </th>
+                </tr>
+            </thead>
+            <tr>
+                <td class="text-center">
+                    Loại:
+                </td>
+                <td>
+                    <select class="form-control" id="dropDown_selectLoai"></select>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">
+                    Mã thiết bị
+                </td>
+                <td>
+                    <select class="form-control" id="dropDown_selectThietBi"></select>
+                </td>
+            </tr>
+            <tr>
+                <td class="text-center">
+                    Tình trạng sau
+                </td>
+                <td>
+                    <select class="form-control" id="dropDown_selectTinhTrangSau">
+                        <option value="0">Còn dùng được</option>
+                        <option value="1">Đang dùng</option>
+                        <option value="2">Đã hư</option>
+                        <option value="3">Đã thanh lý</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <button type="button" class="btn btn-success btn-md" id="btnAdd">+</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="container">
+    <div class="col-sm-10">
+        @using(Html.BeginForm("CreateDetailHandler", "PhieuGiaoNhan")) {
+            @Html.AntiForgeryToken();
+            <input type="hidden" name="maPhieuGiaoNhan" value="@Html.DisplayFor(model => model.MaPhieuGiaoNhan)" />
+            <table class="table" id="table_createChiTietPhieuGiaoNhan">
+                <thead>
+                    <tr>
+                        <th>
+                            Mã thiết bị
+                        </th>
+                        <th>
+                            Loại
+                        </th>
+                        <th>
+                            Tình trạng trước
+                        </th>
+                        <th>
+                            Tình trạng sau
+                        </th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+            <input type="submit" value="Hoàn tất" class="btn btn-default" />
+        }
+    </div>
+</div>
+@*<select class="form-control" id="dropDown_selectThietBi"></select>*@
 

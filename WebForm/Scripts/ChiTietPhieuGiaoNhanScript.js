@@ -1,19 +1,4 @@
-﻿$(document).ready(function () {
-    $.ajax({
-        url: '/PhieuGiaoNhan/SelectLoai/',
-        type: 'Get',
-        dataType: 'json',
-        success: function (listLoai) {
-            var rows = '';
-            alert(listLoai);
-            $.each(listLoai, function (i, item) {
-                rows += '<option>' + item.tenLoai + '</option>';
-                $("#dropDown_selectLoai").append(rows);
-            });
-            alert(rows);
-        }
-    });
-});
+﻿
 /*
 <tr>
     <td id="row_Addbuton" colspan="2">

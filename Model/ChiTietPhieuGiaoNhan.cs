@@ -20,5 +20,12 @@ namespace Model
     
         public virtual PhieuGiaoNhan PhieuGiaoNhan { get; set; }
         public virtual ThietBi ThietBi { get; set; }
+        public ChiTietPhieuGiaoNhan(int maPhieuGiaoNhan, int maThietBi, int tinhTrang) {
+            MaPhieuGiaoNhan = maPhieuGiaoNhan;
+            MaThietBi = maThietBi;
+            TinhTrang = tinhTrang;
+        }
+
+        public ChiTietPhieuGiaoNhan() { }
     }
 }
