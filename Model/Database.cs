@@ -19,6 +19,22 @@ namespace Model {
         public const int MAY_CHIEU_SHAFT = 3;
         public const int DEN_LED = 4;
 
+        public static int SelectLastMaPhieuNhap() {
+            using(Context context = new Model.Context()) {
+                return (from t in context.PhieuNhap
+                        orderby t.MaPhieuNhap descending
+                        select t).FirstOrDefault().MaPhieuNhap;
+            }
+        }
+
+        public static int SelectLastMaPhieuGiaoNhan() {
+            using(Context context = new Model.Context()) {
+                return (from t in context.PhieuGiaoNhan
+                        orderby t.MaPhieuGiaoNhan descending
+                        select t).FirstOrDefault().MaPhieuGiaoNhan;
+            }
+        }
+
         public static List<ChiTietPhieuGiaoNhan> SelectChiTietPhieuGiaoNhan(int maPhieuGiaoNhan) {
             using(Context context = new Model.Context()) {
                 //return context.ChiTietPhieuGiaoNhan.Where(ct => ct.MaPhieuGiaoNhan == maPhieuGiaoNhan).ToList();
@@ -68,9 +84,7 @@ namespace Model {
                         thietBi.MaLoai = maLoai[i];
                         thietBi.NgayDuaVaoSuDung = null;
                         thietBi.TinhTrang = 0;
-
                         phieuNhap.ThietBi.Add(thietBi);
-
                     }
                     context.SaveChanges();
                 }
@@ -129,9 +143,9 @@ namespace Model {
         public static List<ThietBi> ThongKeTheoLoai(string tenLoai, string date) {
             using(Context context = new Context()) {
                 List<ThietBi> result = new List<ThietBi>();
+                List<ThietBi> listThietBi = new List<ThietBi>();
                 int maLoai = GetMaLoai(tenLoai);
                 DateTime time = Convert.ToDateTime(date);
-                List<ThietBi> listThietBi = new List<ThietBi>();
                 List<PhieuNhap> listPhieuNhap = (from l in context.PhieuNhap
                                                  where l.NgayNhap <= time
                                                  select l).ToList();
@@ -140,6 +154,9 @@ namespace Model {
                 }
 
                 foreach(ThietBi tb in listThietBi) {
+                    if (tb.MaLoai != maLoai) {
+                        continue;
+                    }
                     ThietBi temp = new ThietBi();
                     temp.MaThietBi = tb.MaThietBi;
                     temp.NgayDuaVaoSuDung = tb.NgayDuaVaoSuDung;

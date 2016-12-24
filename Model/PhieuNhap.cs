@@ -22,6 +22,8 @@ namespace Model
         }
     
         public int MaPhieuNhap { get; set; }
+
+        [Display(Name = "Nhà cung cấp")]
         public int MaNhaCungCap { get; set; }
 
         [Display(Name = "Ngày Nhập")]

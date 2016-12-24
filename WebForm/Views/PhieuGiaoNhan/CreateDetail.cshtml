@@ -87,22 +87,28 @@
             });
         });
         $("#btnAdd").click(function () {
+            var soDong = $("#table_createChiTietPhieuGiaoNhan > tbody > tr").length;
             var maThietBi = $("#dropDown_selectThietBi").find("option:selected").val();
             var loai = $("#dropDown_selectLoai").find("option:selected").text();
             var tinhTrangTruoc = $("#dropDown_selectThietBi").find("option:selected").text();
             tinhTrangTruoc = tinhTrangTruoc.split(" - ")[1];
             var tinhTrangSau = $("#dropDown_selectTinhTrangSau").find("option:selected").text();
             var maTinhTrangSau = $("#dropDown_selectTinhTrangSau").find("option:selected").val();
-            var soDong = $("#table_createChiTietPhieuGiaoNhan > tbody > tr").length;
             var row = '';
             row += '<tr>';
             row += '<input type="hidden" name=maThietBi[' + soDong + '] value=' + maThietBi + '>';
             row += '<input type="hidden" name=tinhTrang[' + soDong + '] value=' + maTinhTrangSau + '>';
-            row += '<td>' + maThietBi + '</td>';
+            row += '<td class="matb">' + maThietBi + '</td>';
             row += '<td>' + loai + '</td>';
             row += '<td>' + tinhTrangTruoc + '</td>';
             row += '<td>' + tinhTrangSau + '</td>';
             row += '</tr>';
+            $(".matb").each(function (i, item) {
+                if ($(this).text() == maThietBi) {
+                    alert("Thiết bị này đã tồn tại")
+                    row = '';
+                }
+            });
             $("#table_createChiTietPhieuGiaoNhan").append(row);
         });
     });

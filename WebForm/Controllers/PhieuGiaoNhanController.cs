@@ -55,10 +55,12 @@ namespace WebForm.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MaPhieuGiaoNhan,MaDonVi,NgayGiaoNhan")] PhieuGiaoNhan phieuGiaoNhan) {
-            if(ModelState.IsValid) {
+            if(true) {
+                PhieuGiaoNhan p = phieuGiaoNhan;
+                p.MaPhieuGiaoNhan = Model.Database.SelectLastMaPhieuGiaoNhan() + 1;
                 db.PhieuGiaoNhan.Add(phieuGiaoNhan);
                 db.SaveChanges();
-                return RedirectToAction("CreateDetail");
+                return RedirectToAction("CreateDetail/" + p.MaPhieuGiaoNhan);
             }
 
             ViewBag.MaDonVi = new SelectList(db.DonVi, "MaDonVi", "TenDonVi", phieuGiaoNhan.MaDonVi);
@@ -74,7 +76,7 @@ namespace WebForm.Controllers {
 
         public ActionResult CreateDetailHandler(int maPhieuGiaoNhan, int[] maThietBi, int[] tinhTrang) {
             Model.Database.InsertChiTietPhieuGiaoNhan(maPhieuGiaoNhan, maThietBi, tinhTrang);
-            return RedirectToAction("Detail");
+            return RedirectToAction("Details/" + maPhieuGiaoNhan);
         }
 
         public JsonResult SelectLoai() {

@@ -50,10 +50,12 @@ namespace WebForm.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "MaPhieuNhap,MaNhaCungCap,NgayNhap")] PhieuNhap phieuNhap) {
-            if(ModelState.IsValid) {
+            if(true) {
+                PhieuNhap p = phieuNhap;
+                p.MaPhieuNhap = Model.Database.SelectLastMaPhieuNhap() + 1;
                 db.PhieuNhap.Add(phieuNhap);
                 db.SaveChanges();
-                return RedirectToAction("CreateDetail");
+                return RedirectToAction("CreateDetail/" + p.MaPhieuNhap);
             }
 
             ViewBag.MaNhaCungCap = new SelectList(db.NhaCungCap, "MaNhaCungCap", "TenNhaCungCap", phieuNhap.MaNhaCungCap);
@@ -66,8 +68,8 @@ namespace WebForm.Controllers {
             return View(phieuNhap);
         }
 
-        public ActionResult CreateDetailHandler(int maPhieuNhap, int[] maLoai, int[] soLuong) {
-            Model.Database.InsertListThietBi(maPhieuNhap, maLoai, soLuong);
+        public ActionResult CreateDetailHandler(int? maPhieuNhap, int[] maLoai, int[] soLuong) {
+            Model.Database.InsertListThietBi(maPhieuNhap ?? default(int), maLoai, soLuong);
             return RedirectToAction("Index");
         }
 
